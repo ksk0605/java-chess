@@ -1,18 +1,23 @@
-package domain.piece;
+package domain.piece.sliding;
 
 import domain.Direction;
 import domain.Team;
+import domain.piece.SlidingPiece;
 
 import java.util.List;
 
-public class Bishop extends SlidingPiece {
-    public Bishop(final Team team) {
+public class Queen extends SlidingPiece {
+    public Queen(final Team team) {
         super(team);
     }
 
     @Override
     protected List<Direction> movableDirections() {
         return List.of(
+                Direction.NORTH,
+                Direction.SOUTH,
+                Direction.EAST,
+                Direction.WEST,
                 Direction.NORTH_EAST,
                 Direction.NORTH_WEST,
                 Direction.SOUTH_EAST,

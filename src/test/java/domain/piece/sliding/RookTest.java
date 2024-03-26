@@ -1,4 +1,4 @@
-package domain.piece;
+package domain.piece.sliding;
 
 import domain.*;
 import org.junit.jupiter.api.DisplayName;

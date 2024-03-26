@@ -1,6 +1,12 @@
 package domain;
 
-import domain.piece.*;
+import domain.piece.King;
+import domain.piece.Knight;
+import domain.piece.Pawn;
+import domain.piece.Piece;
+import domain.piece.sliding.Bishop;
+import domain.piece.sliding.Queen;
+import domain.piece.sliding.Rook;
 
 import java.util.Collections;
 import java.util.HashMap;
