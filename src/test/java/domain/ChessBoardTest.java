@@ -22,7 +22,7 @@ class ChessBoardTest {
         // when & then
         assertThatThrownBy(() -> chessBoard.move(source, source))
                 .isInstanceOf(IllegalArgumentException.class)
-                .hasMessage("갈 수 없는 경로입니다.");
+                .hasMessage("제자리 이동은 불가능합니다.");
     }
 
     @DisplayName("기물이 이동할 수 없는 경로 이동은 불가능하다 : 폰 3칸")

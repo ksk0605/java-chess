@@ -54,6 +54,7 @@ public class ChessBoard {
 
     public void move(final Square source, final Square target) {
         validateEmptySource(source);
+        validateSameSquare(source, target);
 
         final Piece sourcePiece = pieces.get(source);
 
@@ -63,6 +64,12 @@ public class ChessBoard {
         pieces.put(target, sourcePiece);
         pieces.remove(source);
         team = team.turn();
+    }
+
+    private void validateSameSquare(final Square source, final Square target) {
+        if (source.equals(target)) {
+            throw new IllegalArgumentException("제자리 이동은 불가능합니다.");
+        }
     }
 
     private void validateEmptySource(final Square source) {
