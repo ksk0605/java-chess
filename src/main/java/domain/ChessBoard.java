@@ -1,7 +1,8 @@
 package domain;
 
-import domain.piece.Pawn;
+import domain.piece.BlackPawn;
 import domain.piece.Piece;
+import domain.piece.WhitePawn;
 import domain.piece.jumping.King;
 import domain.piece.jumping.Knight;
 import domain.piece.sliding.Bishop;
@@ -42,8 +43,8 @@ public class ChessBoard {
         final Map<Square, Piece> chessTable = new HashMap<>();
 
         for (final File file : File.values()) {
-            chessTable.put(new Square(file, Rank.SEVEN), new Pawn(Team.BLACK));
-            chessTable.put(new Square(file, Rank.TWO), new Pawn(Team.WHITE));
+            chessTable.put(new Square(file, Rank.SEVEN), new BlackPawn());
+            chessTable.put(new Square(file, Rank.TWO), new WhitePawn());
             chessTable.put(new Square(file, Rank.EIGHT), BLACK_PIECE_TYPE_ORDERS.get(file));
             chessTable.put(new Square(file, Rank.ONE), WHITE_PIECE_TYPE_ORDERS.get(file));
         }

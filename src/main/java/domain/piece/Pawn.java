@@ -1,50 +1,30 @@
 package domain.piece;
 
 import domain.Direction;
-import domain.Rank;
 import domain.Square;
 import domain.Team;
 
 import java.util.List;
 import java.util.Map;
 
-public class Pawn extends Piece {
-    public Pawn(final Team team) {
+public abstract class Pawn extends Piece {
+    Pawn(final Team team) {
         super(team);
     }
 
     @Override
     protected List<Direction> movableDirections() {
-        return null;
+        return List.of();
     }
 
-    @Override
-    public boolean canMove(final Square source, final Square target, final Map<Square, Piece> pieces) {
-        if (this.team == Team.BLACK) {
-            if (pieces.containsKey(target)) {
-                if (hasSameTeamPieceOnTarget(source, target, pieces)) {
-                    return false;
-                }
-                return source.next(Direction.SOUTH_EAST).equals(target)
-                        || source.next(Direction.SOUTH_WEST).equals(target);
-            }
-            return source.next(Direction.SOUTH).equals(target)
-                    || (source.next(Direction.SOUTH_SOUTH).equals(target) && source.isRank(Rank.SEVEN));
-        }
-        if (pieces.containsKey(target)) {
-            if (hasSameTeamPieceOnTarget(source, target, pieces)) {
-                return false;
-            }
-            return source.next(Direction.NORTH_EAST).equals(target)
-                    || source.next(Direction.NORTH_WEST).equals(target);
-        }
-        return source.next(Direction.NORTH).equals(target)
-                || (source.next(Direction.NORTH_NORTH).equals(target) && source.isRank(Rank.TWO));
-    }
+    public abstract boolean canMove(final Square source, final Square target, final Map<Square, Piece> pieces);
 
-    private static boolean hasSameTeamPieceOnTarget(final Square source, final Square target, final Map<Square, Piece> pieces) {
+    protected void validateHasSameTeamPieceOnTarget(final Square source, final Square target, final Map<Square, Piece> pieces) {
         final Piece targetPiece = pieces.get(target);
         final Piece sourcePiece = pieces.get(source);
-        return targetPiece.isSameTeam(sourcePiece);
+
+        if (targetPiece.isSameTeam(sourcePiece)) {
+            throw new IllegalArgumentException("같은 팀은 공격할 수 없습니다.");
+        }
     }
 }

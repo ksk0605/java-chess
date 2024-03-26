@@ -1,6 +1,9 @@
 package domain.piece;
 
-import domain.*;
+import domain.ChessBoard;
+import domain.File;
+import domain.Rank;
+import domain.Square;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -13,8 +16,8 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PawnTest {
-    final Pawn whitePawn = new Pawn(Team.WHITE);
-    final Pawn blackPawn = new Pawn(Team.BLACK);
+    static final Pawn whitePawn = new WhitePawn();
+    static final Pawn blackPawn = new BlackPawn();
 
     @DisplayName("백색 폰은 위로 1칸 움직일 수 있다, 단 초기위치에서 2칸 이동을 허용한다.")
     @ParameterizedTest
@@ -103,9 +106,7 @@ class PawnTest {
     @DisplayName("대각선에 적이 없으면 공격할 수 없다.")
     @ParameterizedTest
     @MethodSource(value = "canNotAttackArguments")
-    void canNotAttack(final Team sourceTeam, final Team targetTeam, final Square source, final Square target) {
-        final Pawn sourcePawn = new Pawn(sourceTeam);
-        final Pawn targetPawn = new Pawn(targetTeam);
+    void canNotAttack(final Pawn sourcePawn, final Pawn targetPawn, final Square source, final Square target) {
 
         final Map<Square, Piece> pieces = new HashMap<>();
         pieces.put(source, sourcePawn);
@@ -118,12 +119,12 @@ class PawnTest {
 
     static Stream<Arguments> canNotAttackArguments() {
         return Stream.of(
-                Arguments.of(Team.WHITE, Team.BLACK, new Square(File.D, Rank.SEVEN), new Square(File.D, Rank.SIX)),
-                Arguments.of(Team.WHITE, Team.BLACK, new Square(File.D, Rank.SEVEN), new Square(File.D, Rank.FIVE)),
-                Arguments.of(Team.WHITE, Team.BLACK, new Square(File.D, Rank.SEVEN), new Square(File.D, Rank.FOUR)),
-                Arguments.of(Team.BLACK, Team.WHITE, new Square(File.D, Rank.TWO), new Square(File.D, Rank.THREE)),
-                Arguments.of(Team.BLACK, Team.WHITE, new Square(File.D, Rank.TWO), new Square(File.D, Rank.ONE)),
-                Arguments.of(Team.BLACK, Team.WHITE, new Square(File.D, Rank.TWO), new Square(File.D, Rank.FOUR))
+                Arguments.of(whitePawn, blackPawn, new Square(File.D, Rank.SEVEN), new Square(File.D, Rank.SIX)),
+                Arguments.of(whitePawn, blackPawn, new Square(File.D, Rank.SEVEN), new Square(File.D, Rank.FIVE)),
+                Arguments.of(whitePawn, blackPawn, new Square(File.D, Rank.SEVEN), new Square(File.D, Rank.FOUR)),
+                Arguments.of(blackPawn, whitePawn, new Square(File.D, Rank.TWO), new Square(File.D, Rank.THREE)),
+                Arguments.of(blackPawn, whitePawn, new Square(File.D, Rank.TWO), new Square(File.D, Rank.ONE)),
+                Arguments.of(blackPawn, whitePawn, new Square(File.D, Rank.TWO), new Square(File.D, Rank.FOUR))
         );
     }
 }
