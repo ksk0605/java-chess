@@ -9,6 +9,8 @@ import domain.piece.Piece;
 import java.util.Map;
 
 public class WhitePawn extends Pawn {
+    public static final Rank INITIAL_SQUARE = Rank.TWO;
+
     public WhitePawn() {
         super(Team.WHITE);
     }
@@ -21,7 +23,7 @@ public class WhitePawn extends Pawn {
                     source.next(Direction.NORTH_WEST).equals(target);
         }
         return source.next(Direction.NORTH).equals(target) ||
-                (source.next(Direction.NORTH_NORTH).equals(target) && source.isRank(Rank.TWO));
+                (source.next(Direction.NORTH_NORTH).equals(target) && source.isRank(INITIAL_SQUARE));
     }
 
 }
