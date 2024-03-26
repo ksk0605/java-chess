@@ -18,22 +18,26 @@ public abstract class Piece {
     protected abstract List<Direction> movableDirections();
 
     protected List<Square> calculatePath(final Square source, final Map<Square, Piece> pieces) {
+        return movableDirections().stream()
+                .flatMap(direction -> calculatePathInDirection(source, direction, pieces).stream())
+                .toList();
+    }
+
+    private List<Square> calculatePathInDirection(final Square source, final Direction direction, final Map<Square, Piece> pieces) {
         final List<Square> movableSquares = new ArrayList<>();
+        Square movableSource = source;
 
-        for (final Direction movableDirection : movableDirections()) {
-            Square movableSource = source;
-
-            while (movableSource.canMove(movableDirection)) {
-                movableSource = movableSource.next(movableDirection);
-                if (pieces.containsKey(movableSource)) {
-                    break;
-                }
-                movableSquares.add(movableSource);
+        while (movableSource.canMove(direction)) {
+            movableSource = movableSource.next(direction);
+            if (pieces.containsKey(movableSource)) {
+                break;
             }
+            movableSquares.add(movableSource);
         }
 
         return movableSquares;
     }
+
 
     public boolean canNotMove(final Square source, final Square target, final Map<Square, Piece> pieces) {
         return !canMove(source, target, pieces);
