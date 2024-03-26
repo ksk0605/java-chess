@@ -1,9 +1,10 @@
-package domain.piece;
+package domain.piece.pawn;
 
 import domain.ChessBoard;
 import domain.File;
 import domain.Rank;
 import domain.Square;
+import domain.piece.Piece;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;

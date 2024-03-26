@@ -1,9 +1,10 @@
-package domain.piece;
+package domain.piece.pawn;
 
 import domain.Direction;
 import domain.Rank;
 import domain.Square;
 import domain.Team;
+import domain.piece.Piece;
 
 import java.util.Map;
 

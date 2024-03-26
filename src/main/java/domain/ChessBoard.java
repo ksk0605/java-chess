@@ -1,10 +1,10 @@
 package domain;
 
-import domain.piece.BlackPawn;
 import domain.piece.Piece;
-import domain.piece.WhitePawn;
 import domain.piece.jumping.King;
 import domain.piece.jumping.Knight;
+import domain.piece.pawn.BlackPawn;
+import domain.piece.pawn.WhitePawn;
 import domain.piece.sliding.Bishop;
 import domain.piece.sliding.Queen;
 import domain.piece.sliding.Rook;
