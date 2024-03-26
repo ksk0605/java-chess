@@ -6,8 +6,6 @@ import domain.Rank;
 import domain.Square;
 import dto.ChessBoardDTO;
 import view.InputView;
-import view.Menu;
-import view.MoveCommand;
 import view.OutputView;
 
 public class ChessController {

@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 public record MoveCommand(String file, int rank) {
 

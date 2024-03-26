@@ -1,4 +1,4 @@
-package view;
+package controller;
 
 public enum Menu {
     START("start"),
