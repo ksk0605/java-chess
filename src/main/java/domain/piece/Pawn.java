@@ -5,11 +5,17 @@ import domain.Rank;
 import domain.Square;
 import domain.Team;
 
+import java.util.List;
 import java.util.Map;
 
 public class Pawn extends Piece {
     public Pawn(final Team team) {
         super(team);
+    }
+
+    @Override
+    protected List<Direction> movableDirections() {
+        return null;
     }
 
     @Override

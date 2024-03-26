@@ -15,26 +15,24 @@ public abstract class Piece {
         this.team = team;
     }
 
-    protected boolean checkMovable(final Square source, final Square target, final List<Direction> movableDirections, final Map<Square, Piece> pieces) {
+    protected abstract List<Direction> movableDirections();
+
+    protected List<Square> calculatePath(final Square source, final Map<Square, Piece> pieces) {
         final List<Square> movableSquares = new ArrayList<>();
 
-        for (final Direction movableDirection : movableDirections) {
-            addMovableSquares(source, movableDirection, movableSquares, pieces);
-        }
+        for (final Direction movableDirection : movableDirections()) {
+            Square movableSource = source;
 
-        return movableSquares.contains(target);
-    }
-
-    protected void addMovableSquares(final Square source, final Direction direction, final List<Square> movableSquares, final Map<Square, Piece> pieces) {
-        Square movableSource = source;
-
-        while (movableSource.canMove(direction)) {
-            movableSource = movableSource.next(direction);
-            if (pieces.containsKey(movableSource)) {
-                break;
+            while (movableSource.canMove(movableDirection)) {
+                movableSource = movableSource.next(movableDirection);
+                if (pieces.containsKey(movableSource)) {
+                    break;
+                }
+                movableSquares.add(movableSource);
             }
-            movableSquares.add(movableSource);
         }
+
+        return movableSquares;
     }
 
     public boolean canNotMove(final Square source, final Square target, final Map<Square, Piece> pieces) {
