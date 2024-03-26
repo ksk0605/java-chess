@@ -1,8 +1,9 @@
-package domain.piece;
+package domain.piece.sliding;
 
 import domain.Direction;
 import domain.Square;
 import domain.Team;
+import domain.piece.Piece;
 
 import java.util.ArrayList;
 import java.util.List;
