@@ -2,7 +2,6 @@ package domain.piece.jumping;
 
 import domain.Direction;
 import domain.Team;
-import domain.piece.JumpingPiece;
 
 import java.util.List;
 

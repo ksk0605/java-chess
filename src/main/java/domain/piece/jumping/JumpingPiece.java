@@ -1,8 +1,9 @@
-package domain.piece;
+package domain.piece.jumping;
 
 import domain.Direction;
 import domain.Square;
 import domain.Team;
+import domain.piece.Piece;
 
 import java.util.List;
 import java.util.Map;
@@ -16,11 +17,8 @@ public abstract class JumpingPiece extends Piece {
 
     @Override
     public boolean canMove(final Square source, final Square target, final Map<Square, Piece> pieces) {
-        for (final Direction movableDirection : movableDirections()) {
-            if (source.next(movableDirection).equals(target)) {
-                return true;
-            }
-        }
-        return false;
+        return movableDirections().stream()
+                .map(source::next)
+                .anyMatch(square -> square.equals(target));
     }
 }
