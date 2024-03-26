@@ -1,8 +1,8 @@
-import controller.ChessController;
+import controller.ChessController2;
 
 public class Application {
     public static void main(final String[] args) {
-        final ChessController chessController = new ChessController();
+        final ChessController2 chessController = new ChessController2();
         chessController.run();
     }
 }

@@ -1,6 +1,17 @@
 package state;
 
+import domain.ChessBoard;
+import domain.Square;
+import dto.ChessBoardDTO;
+import view.OutputView;
+
 public class Running implements GameState {
+    private final ChessBoard chessBoard;
+    private final OutputView outputView = new OutputView();
+
+    public Running(final ChessBoard chessBoard) {
+        this.chessBoard = chessBoard;
+    }
 
     @Override
     public GameState start() {
@@ -8,13 +19,16 @@ public class Running implements GameState {
     }
 
     @Override
-    public GameState play() {
-        return new Running();
+    public GameState play(final Square source, final Square target) {
+        chessBoard.move(source, target);
+
+        outputView.printChessBoard(ChessBoardDTO.from(chessBoard.getPieces()));
+
+        return new Running(this.chessBoard);
     }
 
     @Override
     public GameState end() {
-
         return new End();
     }
 }
