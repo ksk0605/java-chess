@@ -1,9 +1,9 @@
 package domain;
 
-import domain.piece.King;
-import domain.piece.Knight;
 import domain.piece.Pawn;
 import domain.piece.Piece;
+import domain.piece.jumping.King;
+import domain.piece.jumping.Knight;
 import domain.piece.sliding.Bishop;
 import domain.piece.sliding.Queen;
 import domain.piece.sliding.Rook;
