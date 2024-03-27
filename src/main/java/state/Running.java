@@ -3,6 +3,7 @@ package state;
 import domain.ChessBoard;
 import domain.Square;
 import dto.ChessBoardDTO;
+import dto.StatusDTO;
 import view.OutputView;
 
 public class Running implements GameState {
@@ -25,6 +26,12 @@ public class Running implements GameState {
         outputView.printChessBoard(ChessBoardDTO.from(chessBoard.getPieces()));
 
         return new Running(this.chessBoard);
+    }
+
+    @Override
+    public GameState status() {
+        outputView.printStatus(StatusDTO.from(chessBoard.status()));
+        return new Running(chessBoard);
     }
 
     @Override

@@ -1,6 +1,7 @@
 package view;
 
 import dto.ChessBoardDTO;
+import dto.StatusDTO;
 
 import java.util.List;
 
@@ -28,5 +29,19 @@ public class OutputView {
 
     public void printError(final String message) {
         System.out.println(message);
+    }
+
+    public void printStatus(final StatusDTO status) {
+        System.out.println("백 진영 점수 : " + status.whiteScore());
+        System.out.println("흑 진영 점수 : " + status.blackScore());
+
+        String winLose = "무승부";
+        if (status.whiteScore() > status.blackScore()) {
+            winLose = "백 진영 승리";
+        }
+        if (status.whiteScore() < status.blackScore()) {
+            winLose = "흑 진영 승리";
+        }
+        System.out.println(winLose);
     }
 }

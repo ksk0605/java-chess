@@ -14,6 +14,11 @@ public class End implements GameState {
     }
 
     @Override
+    public GameState status() {
+        return null;
+    }
+
+    @Override
     public GameState end() {
         return null;
     }

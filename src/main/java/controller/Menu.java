@@ -9,6 +9,7 @@ import view.InputView;
 public enum Menu {
     START("start"),
     MOVE("move"),
+    STATUS("status"),
     END("end"),
     DEFAULT("default");
 
@@ -38,6 +39,9 @@ public enum Menu {
 
             return state.play(source, target);
         }
+        if (isStatus()) {
+            return state.status();
+        }
         return state.end();
     }
 
@@ -50,11 +54,11 @@ public enum Menu {
         return this == START;
     }
 
-    public boolean isEnd() {
-        return this == END;
-    }
-
     public boolean isMove() {
         return this == MOVE;
+    }
+
+    private boolean isStatus() {
+        return this == STATUS;
     }
 }

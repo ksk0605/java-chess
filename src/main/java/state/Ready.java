@@ -21,6 +21,11 @@ public class Ready implements GameState {
     }
 
     @Override
+    public GameState status() {
+        throw new UnsupportedOperationException("게임을 시작해주세요.");
+    }
+
+    @Override
     public GameState end() {
         return new End();
     }

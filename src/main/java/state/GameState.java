@@ -7,6 +7,8 @@ public interface GameState {
 
     GameState play(Square source, Square target);
 
+    GameState status();
+
     GameState end();
 
     default boolean isNotEnd() {
