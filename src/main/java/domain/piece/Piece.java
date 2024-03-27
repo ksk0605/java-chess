@@ -16,7 +16,7 @@ public abstract class Piece {
 
     protected abstract List<Direction> movableDirections();
 
-    public boolean canNotMove(final Square source, final Square target, final Map<Square, Piece> pieces) {
+    public boolean cannotMove(final Square source, final Square target, final Map<Square, Piece> pieces) {
         return !canMove(source, target, pieces);
     }
 

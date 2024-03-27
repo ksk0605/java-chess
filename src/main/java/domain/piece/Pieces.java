@@ -55,7 +55,7 @@ public class Pieces {
     }
 
     public boolean cannotMove(final Square source, final Square target) {
-        return get(source).canNotMove(source, target, pieces);
+        return get(source).cannotMove(source, target, pieces);
     }
 
     public boolean isOppositeTeam(final Square source, final Team team) {
