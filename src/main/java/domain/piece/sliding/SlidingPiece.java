@@ -35,7 +35,7 @@ public abstract class SlidingPiece extends Piece {
 
         while (movableSource.canMove(direction)) {
             movableSource = movableSource.next(direction);
-            if (pieces.containsKey(movableSource)) {
+            if (pieces.containsKey(movableSource) && pieces.get(movableSource).isSameTeam(pieces.get(source))) {
                 break;
             }
             movableSquares.add(movableSource);
