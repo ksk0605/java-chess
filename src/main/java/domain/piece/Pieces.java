@@ -20,22 +20,27 @@ public class Pieces {
         pieces.remove(source);
     }
 
-    public Map<Team, Double> status(final Team team) {
-        final double scoreWithoutPawn = pieces.values().stream()
+    public double score(final Team team) {
+        return getScoreWithoutPawn(team) + getTotalPawnScore(team);
+    }
+
+    private double getScoreWithoutPawn(final Team team) {
+        return pieces.values().stream()
                 .filter(piece -> piece.team() == team)
                 .filter(piece -> !piece.isPawn())
                 .mapToDouble(Piece::score)
                 .sum();
-
-        final double totalPawnScore = countPawnsByFile(pieces).values().stream()
-                .mapToDouble(aLong -> aLong >= 2 ? aLong * 0.5 : aLong)
-                .sum();
-
-        return Map.of(team, scoreWithoutPawn + totalPawnScore);
     }
 
-    public Map<File, Long> countPawnsByFile(final Map<Square, Piece> pieces) {
+    private double getTotalPawnScore(final Team team) {
+        return countPawnsByFile(pieces, team).values().stream()
+                .mapToDouble(aLong -> aLong >= 2 ? aLong * 0.5 : aLong)
+                .sum();
+    }
+
+    private Map<File, Long> countPawnsByFile(final Map<Square, Piece> pieces, final Team team) {
         return pieces.entrySet().stream()
+                .filter(entry -> entry.getValue().team() == team)
                 .filter(entry -> entry.getValue().isPawn())
                 .collect(Collectors.groupingBy(entry -> entry.getKey().file(), Collectors.counting()));
     }
