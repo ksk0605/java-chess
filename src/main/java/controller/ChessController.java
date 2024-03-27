@@ -1,7 +1,7 @@
 package controller;
 
-import state.GameState;
-import state.Ready;
+import controller.state.GameState;
+import controller.state.Ready;
 import view.InputView;
 import view.OutputView;
 

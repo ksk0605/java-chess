@@ -1,17 +1,16 @@
 package controller;
 
+import controller.state.GameState;
 import domain.File;
 import domain.Rank;
 import domain.Square;
-import state.GameState;
 import view.InputView;
 
 public enum Menu {
     START("start"),
     MOVE("move"),
     STATUS("status"),
-    END("end"),
-    DEFAULT("default");
+    END("end");
 
     private final String command;
     private static final InputView inputView = new InputView();

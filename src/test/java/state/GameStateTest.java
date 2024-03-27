@@ -1,5 +1,9 @@
 package state;
 
+import controller.state.End;
+import controller.state.GameState;
+import controller.state.Ready;
+import controller.state.Running;
 import domain.ChessBoard;
 import domain.File;
 import domain.Rank;

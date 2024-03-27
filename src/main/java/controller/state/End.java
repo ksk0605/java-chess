@@ -1,4 +1,4 @@
-package state;
+package controller.state;
 
 import domain.Square;
 
