@@ -9,9 +9,7 @@ import domain.piece.sliding.Bishop;
 import domain.piece.sliding.Queen;
 import domain.piece.sliding.Rook;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class ChessBoard {
     private static final Map<File, Piece> BLACK_PIECE_TYPE_ORDERS = Map.of(
@@ -100,9 +98,36 @@ public class ChessBoard {
 
     public Map<Team, Double> status() {
         double score = 0;
-        for (final Piece piece : pieces.values()) {
-            if (piece.team() == team) {
-                score += piece.score();
+        final Map<File, List<Piece>> ranks = new HashMap<>(Map.of(
+                File.A, new ArrayList<>(),
+                File.B, new ArrayList<>(),
+                File.C, new ArrayList<>(),
+                File.D, new ArrayList<>(),
+                File.E, new ArrayList<>(),
+                File.F, new ArrayList<>(),
+                File.G, new ArrayList<>(),
+                File.H, new ArrayList<>()
+        ));
+
+        for (final var entry : pieces.entrySet()) {
+            final Piece piece = entry.getValue();
+            final Square square = entry.getKey();
+            if (entry.getValue().team() == team) {
+                if (piece.isPawn()) {
+                    final List<Piece> rankPieces = ranks.get(square.file());
+                    rankPieces.add(piece);
+                    ranks.put(square.file(), rankPieces);
+                } else {
+                    score += piece.score();
+                }
+            }
+        }
+
+        for (final List<Piece> value : ranks.values()) {
+            if (value.size() > 1) {
+                score += value.size() * 0.5;
+            } else {
+                score += value.size();
             }
         }
         return Map.of(team, score);

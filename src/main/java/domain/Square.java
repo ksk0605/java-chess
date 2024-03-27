@@ -37,6 +37,10 @@ public class Square {
         return rank == square.rank && file == square.file;
     }
 
+    public File file() {
+        return file;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(rank, file);

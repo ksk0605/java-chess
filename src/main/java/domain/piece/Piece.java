@@ -34,6 +34,10 @@ public abstract class Piece {
         return this.team == Team.BLACK;
     }
 
+    public boolean isPawn() {
+        return false;
+    }
+
     public Team team() {
         return team;
     }
