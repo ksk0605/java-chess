@@ -190,6 +190,7 @@ class ChessBoardTest {
         assertThat(result).containsEntry(Team.BLACK, 38.0);
     }
 
+    // TODO: 테스트 리팩터링
     @DisplayName("각 진영의 점수 현황을 반환한다 - 흑 20점")
     @Test
     void black20() {
