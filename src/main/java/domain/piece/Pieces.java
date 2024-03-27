@@ -4,7 +4,9 @@ import domain.File;
 import domain.Square;
 import domain.Team;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Pieces {
     final Map<Square, Piece> pieces;
@@ -19,35 +21,23 @@ public class Pieces {
     }
 
     public Map<Team, Double> status(final Team team) {
-        double score = 0;
-        final Map<File, List<Piece>> ranks = new EnumMap<>(File.class);
+        final double scoreWithoutPawn = pieces.values().stream()
+                .filter(piece -> piece.team() == team)
+                .filter(piece -> !piece.isPawn())
+                .mapToDouble(Piece::score)
+                .sum();
 
-        for (final File file : File.values()) {
-            ranks.put(file, new ArrayList<>());
-        }
+        final double totalPawnScore = countPawnsByFile(pieces).values().stream()
+                .mapToDouble(aLong -> aLong >= 2 ? aLong * 0.5 : aLong)
+                .sum();
 
-        for (final var entry : pieces.entrySet()) {
-            final Piece piece = entry.getValue();
-            final Square square = entry.getKey();
-            if (entry.getValue().team() == team) {
-                if (piece.isPawn()) {
-                    final List<Piece> rankPieces = ranks.get(square.file());
-                    rankPieces.add(piece);
-                    ranks.put(square.file(), rankPieces);
-                } else {
-                    score += piece.score();
-                }
-            }
-        }
+        return Map.of(team, scoreWithoutPawn + totalPawnScore);
+    }
 
-        for (final List<Piece> value : ranks.values()) {
-            if (value.size() > 1) {
-                score += value.size() * 0.5;
-            } else {
-                score += value.size();
-            }
-        }
-        return Map.of(team, score);
+    public Map<File, Long> countPawnsByFile(final Map<Square, Piece> pieces) {
+        return pieces.entrySet().stream()
+                .filter(entry -> entry.getValue().isPawn())
+                .collect(Collectors.groupingBy(entry -> entry.getKey().file(), Collectors.counting()));
     }
 
     public boolean hasPiece(final Square source) {
