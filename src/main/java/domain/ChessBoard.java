@@ -87,8 +87,8 @@ public class ChessBoard {
     }
 
     public Map<Team, Double> status() {
-        final double whiteScore = pieces.score(Team.BLACK);
-        final double blackScore = pieces.score(Team.WHITE);
+        final double whiteScore = pieces.score(Team.WHITE);
+        final double blackScore = pieces.score(Team.BLACK);
         return Map.of(Team.WHITE, whiteScore, Team.BLACK, blackScore);
     }
 

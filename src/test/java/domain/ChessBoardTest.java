@@ -1,6 +1,13 @@
 package domain;
 
 import domain.piece.Piece;
+import domain.piece.jumping.King;
+import domain.piece.jumping.Knight;
+import domain.piece.pawn.BlackPawn;
+import domain.piece.pawn.WhitePawn;
+import domain.piece.sliding.Bishop;
+import domain.piece.sliding.Queen;
+import domain.piece.sliding.Rook;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -183,21 +190,64 @@ class ChessBoardTest {
         assertThat(result).containsEntry(Team.BLACK, 38.0);
     }
 
-    @DisplayName("각 진영의 점수 현황을 반환한다 - 흑 승리")
+    @DisplayName("각 진영의 점수 현황을 반환한다 - 흑 20점")
     @Test
-    void statusBlackWin() {
+    void black20() {
         // given
-        final ChessBoard chessBoard = ChessBoard.create();
+        /*
+        *
+        .KR.....  8
+        P.PB....  7
+        .P..Q...  6
+        ........  5
+        .....nq.  4
+        .....p.p  3
+        .....pp.  2
+        ....rk..  1
+        * */
+        final ChessBoard chessBoard = new ChessBoard(Map.of(
+                new Square(File.B, Rank.EIGHT), new King(Team.BLACK),
+                new Square(File.C, Rank.EIGHT), new Rook(Team.BLACK),
+                new Square(File.A, Rank.SEVEN), new BlackPawn(),
+                new Square(File.C, Rank.SEVEN), new BlackPawn(),
+                new Square(File.D, Rank.SEVEN), new Bishop(Team.BLACK),
+                new Square(File.B, Rank.SIX), new BlackPawn(),
+                new Square(File.E, Rank.SIX), new Queen(Team.BLACK)
+        ));
         // when
-        chessBoard.move(new Square(File.F, Rank.TWO), new Square(File.F, Rank.THREE));
-        chessBoard.move(new Square(File.E, Rank.SEVEN), new Square(File.E, Rank.FIVE));
-        chessBoard.move(new Square(File.G, Rank.TWO), new Square(File.G, Rank.FOUR));
-        chessBoard.move(new Square(File.D, Rank.EIGHT), new Square(File.H, Rank.FOUR));
-        chessBoard.move(new Square(File.H, Rank.TWO), new Square(File.H, Rank.THREE));
-        chessBoard.move(new Square(File.H, Rank.FOUR), new Square(File.E, Rank.ONE));
         final Map<Team, Double> result = chessBoard.status();
         //then
-        assertThat(result).containsEntry(Team.WHITE, 38.0);
-        assertThat(result).containsEntry(Team.BLACK, 38.0);
+        assertThat(result).containsEntry(Team.BLACK, 20.0);
+    }
+
+    @DisplayName("각 진영의 점수 현황을 반환한다 - 백 19.5")
+    @Test
+    void white19Dot5() {
+        // given
+        /*
+        *
+        .KR.....  8
+        P.PB....  7
+        .P..Q...  6
+        ........  5
+        .....nq.  4
+        .....p.p  3
+        .....pp.  2
+        ....rk..  1
+        * */
+        final ChessBoard chessBoard = new ChessBoard(Map.of(
+                new Square(File.F, Rank.FOUR), new Knight(Team.WHITE),
+                new Square(File.G, Rank.FOUR), new Queen(Team.WHITE),
+                new Square(File.F, Rank.THREE), new WhitePawn(),
+                new Square(File.H, Rank.THREE), new WhitePawn(),
+                new Square(File.F, Rank.TWO), new WhitePawn(),
+                new Square(File.G, Rank.TWO), new WhitePawn(),
+                new Square(File.E, Rank.ONE), new Rook(Team.WHITE),
+                new Square(File.F, Rank.ONE), new King(Team.WHITE)
+        ));
+        // when
+        final Map<Team, Double> result = chessBoard.status();
+        //then
+        assertThat(result).containsEntry(Team.WHITE, 19.5);
     }
 }
