@@ -182,4 +182,22 @@ class ChessBoardTest {
         //then
         assertThat(result).containsEntry(Team.BLACK, 38.0);
     }
+
+    @DisplayName("각 진영의 점수 현황을 반환한다 - 흑 승리")
+    @Test
+    void statusBlackWin() {
+        // given
+        final ChessBoard chessBoard = ChessBoard.create();
+        // when
+        chessBoard.move(new Square(File.F, Rank.TWO), new Square(File.F, Rank.THREE));
+        chessBoard.move(new Square(File.E, Rank.SEVEN), new Square(File.E, Rank.FIVE));
+        chessBoard.move(new Square(File.G, Rank.TWO), new Square(File.G, Rank.FOUR));
+        chessBoard.move(new Square(File.D, Rank.EIGHT), new Square(File.H, Rank.FOUR));
+        chessBoard.move(new Square(File.H, Rank.TWO), new Square(File.H, Rank.THREE));
+        chessBoard.move(new Square(File.H, Rank.FOUR), new Square(File.E, Rank.ONE));
+        final Map<Team, Double> result = chessBoard.status();
+        //then
+        assertThat(result).containsEntry(Team.WHITE, 38.0);
+        assertThat(result).containsEntry(Team.BLACK, 38.0);
+    }
 }

@@ -18,6 +18,7 @@ public abstract class JumpingPiece extends Piece {
     @Override
     public boolean canMove(final Square source, final Square target, final Map<Square, Piece> pieces) {
         return movableDirections().stream()
+                .filter(source::canMove)
                 .map(source::next)
                 .anyMatch(square -> square.equals(target));
     }
