@@ -22,8 +22,12 @@ public class Running implements GameState {
     @Override
     public GameState play(final Square source, final Square target) {
         chessBoard.move(source, target);
-
         outputView.printChessBoard(ChessBoardDTO.from(chessBoard.getPieces()));
+
+        if (chessBoard.isEnd()) {
+            outputView.printStatus(StatusDTO.from(chessBoard.status()));
+            return new End();
+        }
 
         return new Running(this.chessBoard);
     }

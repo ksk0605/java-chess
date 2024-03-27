@@ -64,4 +64,10 @@ public class Pieces {
     private Piece get(final Square source) {
         return pieces.get(source);
     }
+
+    public int kingCount() {
+        return (int) pieces.values().stream()
+                .filter(Piece::isKing)
+                .count();
+    }
 }

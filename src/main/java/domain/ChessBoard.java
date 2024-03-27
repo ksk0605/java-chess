@@ -95,4 +95,8 @@ public class ChessBoard {
     public Map<Square, Piece> getPieces() {
         return pieces.getPieces();
     }
+
+    public boolean isEnd() {
+        return pieces.kingCount() != 2;
+    }
 }

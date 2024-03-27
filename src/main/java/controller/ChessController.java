@@ -26,5 +26,6 @@ public class ChessController {
                 outputView.printError(e.getMessage());
             }
         }
+        outputView.printEndMessage();
     }
 }

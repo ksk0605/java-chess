@@ -43,4 +43,8 @@ public abstract class Piece {
     }
 
     public abstract double score();
+
+    public boolean isKing() {
+        return false;
+    }
 }

@@ -27,4 +27,9 @@ public class King extends JumpingPiece {
     public double score() {
         return 0;
     }
+
+    @Override
+    public boolean isKing() {
+        return true;
+    }
 }
