@@ -22,4 +22,9 @@ public class King extends JumpingPiece {
                 Direction.SOUTH_EAST,
                 Direction.SOUTH_WEST);
     }
+
+    @Override
+    public double score() {
+        return 0;
+    }
 }

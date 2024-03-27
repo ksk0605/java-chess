@@ -18,4 +18,9 @@ public class Bishop extends SlidingPiece {
                 Direction.SOUTH_EAST,
                 Direction.SOUTH_WEST);
     }
+
+    @Override
+    public double score() {
+        return 3;
+    }
 }

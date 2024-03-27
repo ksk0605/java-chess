@@ -159,4 +159,27 @@ class ChessBoardTest {
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("갈 수 없는 경로입니다.");
     }
+
+    @DisplayName("각 진영의 점수 현황을 반환한다 - 백.")
+    @Test
+    void statusWhite() {
+        // given 
+        final ChessBoard chessBoard = ChessBoard.create();
+        // when 
+        final Map<Team, Double> result = chessBoard.status();
+        //then
+        assertThat(result).containsEntry(Team.WHITE, 38.0);
+    }
+
+    @DisplayName("각 진영의 점수 현황을 반환한다 - 흑")
+    @Test
+    void statusBlack() {
+        // given
+        final ChessBoard chessBoard = ChessBoard.create();
+        chessBoard.move(new Square(File.A, Rank.TWO), new Square(File.A, Rank.THREE));
+        // when
+        final Map<Team, Double> result = chessBoard.status();
+        //then
+        assertThat(result).containsEntry(Team.BLACK, 38.0);
+    }
 }

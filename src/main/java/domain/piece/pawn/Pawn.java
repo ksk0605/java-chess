@@ -28,4 +28,9 @@ public abstract class Pawn extends Piece {
             throw new IllegalArgumentException("같은 팀은 공격할 수 없습니다.");
         }
     }
+
+    @Override
+    public double score() {
+        return 1;
+    }
 }

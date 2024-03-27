@@ -23,4 +23,9 @@ public class Knight extends JumpingPiece {
                 Direction.WEST_WEST_SOUTH
         );
     }
+
+    @Override
+    public double score() {
+        return 2.5;
+    }
 }

@@ -18,4 +18,9 @@ public class Rook extends SlidingPiece {
                 Direction.EAST,
                 Direction.WEST);
     }
+
+    @Override
+    public double score() {
+        return 5;
+    }
 }

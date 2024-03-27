@@ -33,4 +33,10 @@ public abstract class Piece {
     public boolean isBlack() {
         return this.team == Team.BLACK;
     }
+
+    public Team team() {
+        return team;
+    }
+
+    public abstract double score();
 }

@@ -52,6 +52,10 @@ public class ChessBoard {
         return new ChessBoard(chessTable);
     }
 
+    public static ChessBoard empty() {
+        return new ChessBoard(Map.of());
+    }
+
     public void move(final Square source, final Square target) {
         validateEmptySource(source);
         validateSameSquare(source, target);
@@ -94,7 +98,13 @@ public class ChessBoard {
         return Collections.unmodifiableMap(pieces);
     }
 
-    public boolean isEmpty() {
-        return pieces.isEmpty();
+    public Map<Team, Double> status() {
+        double score = 0;
+        for (final Piece piece : pieces.values()) {
+            if (piece.team() == team) {
+                score += piece.score();
+            }
+        }
+        return Map.of(team, score);
     }
 }
