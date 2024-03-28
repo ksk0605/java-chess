@@ -1,5 +1,6 @@
 package controller.state;
 
+import dao.ChessBoardDAO;
 import domain.ChessBoard;
 import domain.Square;
 import dto.ChessBoardDTO;
@@ -10,7 +11,8 @@ public class Ready implements GameState {
 
     @Override
     public GameState start() {
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoardDAO chessBoardDAO = new ChessBoardDAO();
+        final ChessBoard chessBoard = chessBoardDAO.findAll();
         outputView.printChessBoard(ChessBoardDTO.from(chessBoard.getPieces()));
         return new Running(chessBoard);
     }
