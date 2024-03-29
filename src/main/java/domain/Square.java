@@ -53,4 +53,8 @@ public class Square {
                 ", rank=" + rank +
                 '}';
     }
+
+    public Rank rank() {
+        return rank;
+    }
 }

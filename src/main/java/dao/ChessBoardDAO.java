@@ -52,27 +52,51 @@ public final class ChessBoardDAO {
                 final String pieceName = resultSet.getString("piece");
                 final Piece piece;
                 final Team team = Team.from(resultSet.getString("team"));
-                if (pieceName.equals("king")) {
-                    piece = new King(team);
-                } else if (pieceName.equals("queen")) {
-                    piece = new Queen(team);
-                } else if (pieceName.equals("rook")) {
-                    piece = new Rook(team);
-                } else if (pieceName.equals("bishop")) {
-                    piece = new Bishop(team);
-                } else if (pieceName.equals("knight")) {
-                    piece = new Knight(team);
-                } else {
-                    if (team == Team.BLACK) {
-                        piece = new BlackPawn();
-                    } else {
-                        piece = new WhitePawn();
+                switch (pieceName) {
+                    case "king" -> piece = new King(team);
+                    case "queen" -> piece = new Queen(team);
+                    case "rook" -> piece = new Rook(team);
+                    case "bishop" -> piece = new Bishop(team);
+                    case "knight" -> piece = new Knight(team);
+                    default -> {
+                        if (team == Team.BLACK) {
+                            piece = new BlackPawn();
+                        } else {
+                            piece = new WhitePawn();
+                        }
                     }
                 }
                 pieces.put(square, piece);
             }
 
             return new ChessBoard(pieces);
+        } catch (final SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void update(final ChessBoard chessBoard) {
+        final String deleteQuery = "DELETE FROM chessboard";
+        final String insertQuery = "INSERT INTO chessboard (`piece`, `team`, `rank`, `file`) VALUES (?, ?, ?, ?)";
+
+        try (final Connection connection = getConnection();
+             final var deleteStatement = connection.prepareStatement(deleteQuery);
+             final var insertStatement = connection.prepareStatement(insertQuery)) {
+
+            // 기존 데이터 삭제
+            deleteStatement.executeUpdate();
+
+            // 새로운 체스보드 상태 삽입
+            for (final Map.Entry<Square, Piece> entry : chessBoard.getPieces().entrySet()) {
+                final Square square = entry.getKey();
+                final Piece piece = entry.getValue();
+                insertStatement.setString(1, piece.getClass().getSimpleName().toLowerCase());
+                insertStatement.setString(2, piece.team().name().toLowerCase());
+                insertStatement.setString(3, String.valueOf(square.rank().index()));
+                insertStatement.setString(4, square.file().name().toLowerCase());
+                insertStatement.executeUpdate();
+            }
+
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
