@@ -1,5 +1,7 @@
 package controller.state;
 
+import dao.ChessBoardDAO;
+import dao.TurnDAO;
 import domain.ChessBoard;
 import domain.Square;
 import dto.ChessBoardDTO;
@@ -26,6 +28,8 @@ public class Running implements GameState {
 
         if (chessBoard.isEnd()) {
             outputView.printStatus(StatusDTO.from(chessBoard.status()));
+            final ChessBoardDAO chessBoardDAO = new ChessBoardDAO();
+            chessBoardDAO.update(ChessBoard.create());
             return new End();
         }
 
@@ -40,6 +44,10 @@ public class Running implements GameState {
 
     @Override
     public GameState end() {
+        final ChessBoardDAO chessBoardDAO = new ChessBoardDAO();
+        chessBoardDAO.update(chessBoard);
+        final TurnDAO turnDAO = new TurnDAO();
+        turnDAO.update(chessBoard.currentTeam());
         return new End();
     }
 }

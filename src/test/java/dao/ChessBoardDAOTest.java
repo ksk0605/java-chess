@@ -17,12 +17,12 @@ class ChessBoardDAOTest {
         // given
         final Map<Square, Piece> pieces = Map.of(
                 new Square(File.D, Rank.SEVEN), new King(Team.BLACK),
-                new Square(File.D, Rank.SIX), new King(Team.BLACK));
+                new Square(File.D, Rank.SIX), new King(Team.WHITE));
         final ChessBoard chessBoard = new ChessBoard(pieces);
         // when
         final var chessBoardDAO = new ChessBoardDAO();
         chessBoardDAO.update(chessBoard);
         //then
-        assertThat(chessBoardDAO.findAll().getPieces()).isEqualTo(pieces);
+        assertThat(chessBoardDAO.findAll()).isEqualTo(pieces);
     }
 }

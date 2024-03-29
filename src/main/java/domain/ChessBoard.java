@@ -34,6 +34,11 @@ public class ChessBoard {
         this.pieces = new Pieces(new HashMap<>());
     }
 
+    public ChessBoard(final Map<Square, Piece> pieces, final Team team) {
+        this.pieces = new Pieces(pieces);
+        this.team = team;
+    }
+
     public ChessBoard(final Map<Square, Piece> pieces) {
         this.pieces = new Pieces(pieces);
         this.team = Team.WHITE;
@@ -98,5 +103,9 @@ public class ChessBoard {
 
     public boolean isEnd() {
         return pieces.kingCount() != 2;
+    }
+
+    public Team currentTeam() {
+        return team;
     }
 }

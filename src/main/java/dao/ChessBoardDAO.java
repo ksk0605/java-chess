@@ -36,7 +36,7 @@ public final class ChessBoardDAO {
         }
     }
 
-    public ChessBoard findAll() {
+    public Map<Square, Piece> findAll() {
         final var query = "SELECT * FROM chessboard";
         try (final var connection = getConnection();
              final var preparedStatement = connection.prepareStatement(query)) {
@@ -69,7 +69,7 @@ public final class ChessBoardDAO {
                 pieces.put(square, piece);
             }
 
-            return new ChessBoard(pieces);
+            return pieces;
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
@@ -90,7 +90,11 @@ public final class ChessBoardDAO {
             for (final Map.Entry<Square, Piece> entry : chessBoard.getPieces().entrySet()) {
                 final Square square = entry.getKey();
                 final Piece piece = entry.getValue();
-                insertStatement.setString(1, piece.getClass().getSimpleName().toLowerCase());
+                if (piece instanceof BlackPawn || piece instanceof WhitePawn) {
+                    insertStatement.setString(1, "pawn");
+                } else {
+                    insertStatement.setString(1, piece.getClass().getSimpleName().toLowerCase());
+                }
                 insertStatement.setString(2, piece.team().name().toLowerCase());
                 insertStatement.setString(3, String.valueOf(square.rank().index()));
                 insertStatement.setString(4, square.file().name().toLowerCase());
