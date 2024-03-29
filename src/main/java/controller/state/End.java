@@ -5,26 +5,26 @@ import domain.Square;
 public class End implements GameState {
     @Override
     public GameState start() {
-        return null;
+        throw new UnsupportedOperationException("게임이 이미 종료되었습니다.");
     }
 
     @Override
     public GameState play(final Square source, final Square target) {
-        return null;
+        throw new UnsupportedOperationException("게임이 이미 종료되었습니다.");
     }
 
     @Override
     public GameState status() {
-        return null;
+        throw new UnsupportedOperationException("게임이 이미 종료되었습니다.");
     }
 
     @Override
     public GameState end() {
-        return null;
+        throw new UnsupportedOperationException("게임이 이미 종료되었습니다.");
     }
 
     @Override
     public boolean isNotEnd() {
-        return false;
+        throw new UnsupportedOperationException("게임이 이미 종료되었습니다.");
     }
 }
