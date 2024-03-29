@@ -3,10 +3,7 @@ package controller.state;
 import controller.MoveCommand;
 import dao.ChessBoardDAO;
 import dao.TurnDAO;
-import domain.ChessBoard;
-import domain.File;
-import domain.Rank;
-import domain.Square;
+import domain.*;
 import dto.ChessBoardDTO;
 import dto.StatusDTO;
 import view.InputView;
@@ -38,7 +35,7 @@ public class Running implements GameState {
         if (chessBoard.isFinished()) {
             outputView.printStatus(StatusDTO.from(chessBoard.status()));
             final ChessBoardDAO chessBoardDAO = new ChessBoardDAO();
-            chessBoardDAO.update(ChessBoard.init());
+            chessBoardDAO.update(ChessBoardInitializer.initialize());
             return new End();
         }
 

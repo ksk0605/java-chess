@@ -17,6 +17,7 @@ import java.util.stream.Stream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class PawnTest {
+    Map<Square, Piece> pieces = Map.of();
     static final Pawn whitePawn = new WhitePawn();
     static final Pawn blackPawn = new BlackPawn();
 
@@ -26,7 +27,7 @@ class PawnTest {
     void canWhitePawnMove(final Square target) {
         final Square source = new Square(File.D, Rank.TWO);
 
-        final boolean canMove = whitePawn.canMove(source, target, new ChessBoard().getPieces());
+        final boolean canMove = whitePawn.canMove(source, target, pieces);
 
         assertThat(canMove).isTrue();
     }
@@ -45,7 +46,7 @@ class PawnTest {
     void canBlackPawnMove(final Square target) {
         final Square source = new Square(File.D, Rank.SEVEN);
 
-        final boolean canMove = blackPawn.canMove(source, target, new ChessBoard().getPieces());
+        final boolean canMove = blackPawn.canMove(source, target, pieces);
 
         assertThat(canMove).isTrue();
     }

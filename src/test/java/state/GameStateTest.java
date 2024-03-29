@@ -4,7 +4,7 @@ import controller.state.End;
 import controller.state.GameState;
 import controller.state.Ready;
 import controller.state.Running;
-import domain.ChessBoard;
+import domain.ChessBoardInitializer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +50,7 @@ class GameStateTest {
         // TODO: 구조변경으로 인한 테스트 깨짐 해결
     void playWhenRunning() {
         // given
-        final GameState state = new Running(ChessBoard.init());
+        final GameState state = new Running(ChessBoardInitializer.initialize());
         // when
         final GameState actual = state.play();
         //then
@@ -61,7 +61,7 @@ class GameStateTest {
     @Test
     void startWhenRunning() {
         // given
-        final GameState state = new Running(ChessBoard.init());
+        final GameState state = new Running(ChessBoardInitializer.initialize());
         //then
         assertThatCode(state::start)
                 .isInstanceOf(UnsupportedOperationException.class)
@@ -72,7 +72,7 @@ class GameStateTest {
     @Test
     void endWhenRunning() {
         // given
-        final GameState state = new Running(ChessBoard.init());
+        final GameState state = new Running(ChessBoardInitializer.initialize());
         // when
         final GameState actual = state.end();
         //then

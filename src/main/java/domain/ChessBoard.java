@@ -3,7 +3,6 @@ package domain;
 import domain.piece.Piece;
 import domain.piece.Pieces;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class ChessBoard {
@@ -11,11 +10,7 @@ public class ChessBoard {
 
     private final Pieces pieces;
     private Team team;
-
-    public ChessBoard() {
-        this.pieces = new Pieces(new HashMap<>());
-    }
-
+    
     public ChessBoard(final Map<Square, Piece> pieces, final Team team) {
         this.pieces = new Pieces(pieces);
         this.team = team;
@@ -24,11 +19,6 @@ public class ChessBoard {
     public ChessBoard(final Map<Square, Piece> pieces) {
         this.pieces = new Pieces(pieces);
         this.team = Team.WHITE;
-    }
-
-    public static ChessBoard init() {
-        final Map<Square, Piece> pieces = ChessBoardInitializer.initialize();
-        return new ChessBoard(pieces);
     }
 
     public void move(final Square source, final Square target) {
