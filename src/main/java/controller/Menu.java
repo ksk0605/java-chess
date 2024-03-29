@@ -1,10 +1,6 @@
 package controller;
 
 import controller.state.GameState;
-import domain.File;
-import domain.Rank;
-import domain.Square;
-import view.InputView;
 
 public enum Menu {
     START("start"),
@@ -13,7 +9,6 @@ public enum Menu {
     END("end");
 
     private final String command;
-    private static final InputView inputView = new InputView();
 
     Menu(final String command) {
         this.command = command;
@@ -33,20 +28,12 @@ public enum Menu {
             return state.start();
         }
         if (isMove()) {
-            final Square source = readSquare();
-            final Square target = readSquare();
-
-            return state.play(source, target);
+            return state.play();
         }
         if (isStatus()) {
             return state.status();
         }
         return state.end();
-    }
-
-    private Square readSquare() {
-        final MoveCommand moveCommand = MoveCommand.fromInput(inputView.readMoveCommand());
-        return new Square(File.from(moveCommand.file()), Rank.from(moveCommand.rank()));
     }
 
     public boolean isStart() {

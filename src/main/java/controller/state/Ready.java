@@ -28,7 +28,7 @@ public class Ready implements GameState {
     }
 
     @Override
-    public GameState play(final Square source, final Square target) {
+    public GameState play() {
         throw new UnsupportedOperationException("게임을 시작해주세요.");
     }
 

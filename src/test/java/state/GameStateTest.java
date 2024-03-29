@@ -5,17 +5,13 @@ import controller.state.GameState;
 import controller.state.Ready;
 import controller.state.Running;
 import domain.ChessBoard;
-import domain.File;
-import domain.Rank;
-import domain.Square;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-class GameStateTest {
-    Square source = new Square(File.A, Rank.TWO);
-    Square target = new Square(File.A, Rank.THREE);
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatCode;
 
+class GameStateTest {
     @DisplayName("게임 준비 -> 게임 중")
     @Test
     void startWhenReady() {
@@ -24,7 +20,7 @@ class GameStateTest {
         // when
         final GameState actual = state.start();
         //then
-        Assertions.assertThat(actual).isInstanceOf(Running.class);
+        assertThat(actual).isInstanceOf(Running.class);
     }
 
     @DisplayName("게임 준비 중 게임 시도 X")
@@ -33,7 +29,7 @@ class GameStateTest {
         // given
         final GameState state = new Ready();
         //then
-        Assertions.assertThatCode(() -> state.play(source, target))
+        assertThatCode(() -> state.play())
                 .isInstanceOf(UnsupportedOperationException.class)
                 .hasMessage("게임을 시작해주세요.");
     }
@@ -46,18 +42,19 @@ class GameStateTest {
         // when
         final GameState actual = state.end();
         //then
-        Assertions.assertThat(actual).isInstanceOf(End.class);
+        assertThat(actual).isInstanceOf(End.class);
     }
 
     @DisplayName("게임 중 -> 게임 중")
     @Test
+        // TODO: 구조변경으로 인한 테스트 깨짐 해결
     void playWhenRunning() {
         // given
         final GameState state = new Running(ChessBoard.create());
         // when
-        final GameState actual = state.play(source, target);
+        final GameState actual = state.play();
         //then
-        Assertions.assertThat(actual).isInstanceOf(Running.class);
+        assertThat(actual).isInstanceOf(Running.class);
     }
 
     @DisplayName("게임 중 시작 X")
@@ -66,7 +63,7 @@ class GameStateTest {
         // given
         final GameState state = new Running(ChessBoard.create());
         //then
-        Assertions.assertThatCode(state::start)
+        assertThatCode(state::start)
                 .isInstanceOf(UnsupportedOperationException.class)
                 .hasMessage("게임 중에는 시작할 수 없습니다.");
     }
@@ -79,6 +76,6 @@ class GameStateTest {
         // when
         final GameState actual = state.end();
         //then
-        Assertions.assertThat(actual).isInstanceOf(End.class);
+        assertThat(actual).isInstanceOf(End.class);
     }
 }

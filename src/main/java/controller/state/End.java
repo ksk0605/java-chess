@@ -1,7 +1,5 @@
 package controller.state;
 
-import domain.Square;
-
 public class End implements GameState {
     @Override
     public GameState start() {
@@ -9,7 +7,7 @@ public class End implements GameState {
     }
 
     @Override
-    public GameState play(final Square source, final Square target) {
+    public GameState play() {
         throw new UnsupportedOperationException("게임이 이미 종료되었습니다.");
     }
 

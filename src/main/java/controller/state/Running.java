@@ -1,16 +1,21 @@
 package controller.state;
 
+import controller.MoveCommand;
 import dao.ChessBoardDAO;
 import dao.TurnDAO;
 import domain.ChessBoard;
+import domain.File;
+import domain.Rank;
 import domain.Square;
 import dto.ChessBoardDTO;
 import dto.StatusDTO;
+import view.InputView;
 import view.OutputView;
 
 public class Running implements GameState {
     private final ChessBoard chessBoard;
     private final OutputView outputView = new OutputView();
+    private final InputView inputView = new InputView();
 
     public Running(final ChessBoard chessBoard) {
         this.chessBoard = chessBoard;
@@ -22,7 +27,11 @@ public class Running implements GameState {
     }
 
     @Override
-    public GameState play(final Square source, final Square target) {
+    public GameState play() {
+
+        final Square source = readSquare();
+        final Square target = readSquare();
+
         chessBoard.move(source, target);
         outputView.printChessBoard(ChessBoardDTO.from(chessBoard.getPieces()));
 
@@ -33,7 +42,12 @@ public class Running implements GameState {
             return new End();
         }
 
-        return new Running(this.chessBoard);
+        return new Running(chessBoard);
+    }
+
+    private Square readSquare() {
+        final MoveCommand moveCommand = MoveCommand.fromInput(inputView.readMoveCommand());
+        return new Square(File.from(moveCommand.file()), Rank.from(moveCommand.rank()));
     }
 
     @Override
