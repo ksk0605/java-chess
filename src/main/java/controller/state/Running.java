@@ -38,7 +38,7 @@ public class Running implements GameState {
         if (chessBoard.isFinished()) {
             outputView.printStatus(StatusDTO.from(chessBoard.status()));
             final ChessBoardDAO chessBoardDAO = new ChessBoardDAO();
-            chessBoardDAO.update(ChessBoard.create());
+            chessBoardDAO.update(ChessBoard.init());
             return new End();
         }
 

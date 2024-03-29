@@ -22,7 +22,7 @@ class ChessBoardTest {
     @Test
     void moveSamePlace() {
         // given
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoard chessBoard = ChessBoard.init();
 
         final Square source = new Square(File.A, Rank.TWO);
 
@@ -36,7 +36,7 @@ class ChessBoardTest {
     @Test
     void emptyPath() {
         // given
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoard chessBoard = ChessBoard.init();
 
         final Square source = new Square(File.A, Rank.TWO);
         final Square target = new Square(File.A, Rank.FIVE);
@@ -51,7 +51,7 @@ class ChessBoardTest {
     @Test
     void noPieceInSource() {
         // given
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoard chessBoard = ChessBoard.init();
 
         final Square source = new Square(File.A, Rank.THREE);
         final Square target = new Square(File.A, Rank.FOUR);
@@ -66,7 +66,7 @@ class ChessBoardTest {
     @Test
     void blockingPiece() {
         // given
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoard chessBoard = ChessBoard.init();
 
         final Square source = new Square(File.A, Rank.ONE);
         final Square target = new Square(File.A, Rank.EIGHT);
@@ -82,7 +82,7 @@ class ChessBoardTest {
     @Test
     void movePawn() {
         // given
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoard chessBoard = ChessBoard.init();
 
         final Square source = new Square(File.D, Rank.TWO);
         final Square target = new Square(File.D, Rank.FOUR);
@@ -106,7 +106,7 @@ class ChessBoardTest {
     @Test
     void killEnemy() {
         // given
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoard chessBoard = ChessBoard.init();
 
         final Square whiteSource = new Square(File.D, Rank.TWO);
         final Square whiteTarget = new Square(File.D, Rank.FOUR);
@@ -135,7 +135,7 @@ class ChessBoardTest {
     @Test
     void myCamp() {
         // given
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoard chessBoard = ChessBoard.init();
 
         final Square source = new Square(File.A, Rank.SEVEN);
         final Square target = new Square(File.A, Rank.SIX);
@@ -150,7 +150,7 @@ class ChessBoardTest {
     @Test
     void pawnAttack() {
         // given
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoard chessBoard = ChessBoard.init();
 
         final Square whiteSource = new Square(File.D, Rank.TWO);
         final Square whiteTarget = new Square(File.D, Rank.FOUR);
@@ -171,7 +171,7 @@ class ChessBoardTest {
     @Test
     void statusWhite() {
         // given 
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoard chessBoard = ChessBoard.init();
         // when 
         final Map<Team, Double> result = chessBoard.status();
         //then
@@ -182,7 +182,7 @@ class ChessBoardTest {
     @Test
     void statusBlack() {
         // given
-        final ChessBoard chessBoard = ChessBoard.create();
+        final ChessBoard chessBoard = ChessBoard.init();
         chessBoard.move(new Square(File.A, Rank.TWO), new Square(File.A, Rank.THREE));
         // when
         final Map<Team, Double> result = chessBoard.status();
