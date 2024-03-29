@@ -190,7 +190,6 @@ class ChessBoardTest {
         assertThat(result).containsEntry(Team.BLACK, 38.0);
     }
 
-    // TODO: 테스트 리팩터링
     @DisplayName("각 진영의 점수 현황을 반환한다 - 흑 20점")
     @Test
     void black20() {
@@ -201,10 +200,10 @@ class ChessBoardTest {
         P.PB....  7
         .P..Q...  6
         ........  5
-        .....nq.  4
-        .....p.p  3
-        .....pp.  2
-        ....rk..  1
+        ........  4
+        ........  3
+        ........  2
+        ........  1
         * */
         final ChessBoard chessBoard = new ChessBoard(Map.of(
                 new Square(File.B, Rank.EIGHT), new King(Team.BLACK),
@@ -227,9 +226,9 @@ class ChessBoardTest {
         // given
         /*
         *
-        .KR.....  8
-        P.PB....  7
-        .P..Q...  6
+        ........  8
+        ........  7
+        ........  6
         ........  5
         .....nq.  4
         .....p.p  3
