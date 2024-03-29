@@ -39,4 +39,16 @@ public class TurnDAO {
             throw new RuntimeException(e);
         }
     }
+
+    public void update(final Team team) {
+        final var query = "update turn set team = ?";
+        try (final var connection = getConnection();
+             final var preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, team.name().toLowerCase());
+
+            preparedStatement.executeUpdate();
+        } catch (final SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
