@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ChessBoard {
+    public static final int KING_COUNT_THRESHOLD = 2;
     private static final Map<File, Piece> BLACK_PIECE_TYPE_ORDERS = Map.of(
             File.A, new Rook(Team.BLACK), File.B, new Knight(Team.BLACK),
             File.C, new Bishop(Team.BLACK), File.D, new Queen(Team.BLACK),
@@ -101,8 +102,8 @@ public class ChessBoard {
         return pieces.getPieces();
     }
 
-    public boolean isEnd() {
-        return pieces.kingCount() != 2;
+    public boolean isFinished() {
+        return pieces.isKingCountUnder(KING_COUNT_THRESHOLD);
     }
 
     public Team currentTeam() {

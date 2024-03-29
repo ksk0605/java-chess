@@ -41,6 +41,10 @@ public class Square {
         return file;
     }
 
+    public Rank rank() {
+        return rank;
+    }
+
     @Override
     public int hashCode() {
         return Objects.hash(rank, file);
@@ -52,9 +56,5 @@ public class Square {
                 "file=" + file +
                 ", rank=" + rank +
                 '}';
-    }
-
-    public Rank rank() {
-        return rank;
     }
 }

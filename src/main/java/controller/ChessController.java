@@ -11,9 +11,9 @@ public class ChessController {
     private GameState state;
 
     public ChessController() {
-        this.state = new Ready();
         this.inputView = new InputView();
         this.outputView = new OutputView();
+        this.state = new Ready();
     }
 
     public void run() {

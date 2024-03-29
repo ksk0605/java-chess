@@ -57,17 +57,21 @@ public class Pieces {
         return get(source).isOppositeTeam(team);
     }
 
+    public boolean isKingCountUnder(final int count) {
+        return getKingCount() < count;
+    }
+
+    private int getKingCount() {
+        return (int) pieces.values().stream()
+                .filter(Piece::isKing)
+                .count();
+    }
+
     public Map<Square, Piece> getPieces() {
         return Collections.unmodifiableMap(pieces);
     }
 
     private Piece get(final Square source) {
         return pieces.get(source);
-    }
-
-    public int kingCount() {
-        return (int) pieces.values().stream()
-                .filter(Piece::isKing)
-                .count();
     }
 }
