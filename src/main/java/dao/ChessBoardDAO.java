@@ -19,14 +19,13 @@ import java.util.Map;
 
 public final class ChessBoardDAO {
 
-    private static final String SERVER = "localhost:13306"; // MySQL 서버 주소
-    private static final String DATABASE = "chess"; // MySQL DATABASE 이름
+    private static final String SERVER = "localhost:13306";
+    private static final String DATABASE = "chess";
     private static final String OPTION = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    private static final String USERNAME = "root"; //  MySQL 서버 아이디
-    private static final String PASSWORD = "root"; // MySQL 서버 비밀번호
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "root";
 
     public Connection getConnection() {
-        // 드라이버 연결
         try {
             return DriverManager.getConnection("jdbc:mysql://" + SERVER + "/" + DATABASE + OPTION, USERNAME, PASSWORD);
         } catch (final SQLException e) {
@@ -83,10 +82,8 @@ public final class ChessBoardDAO {
              final var deleteStatement = connection.prepareStatement(deleteQuery);
              final var insertStatement = connection.prepareStatement(insertQuery)) {
 
-            // 기존 데이터 삭제
             deleteStatement.executeUpdate();
 
-            // 새로운 체스보드 상태 삽입
             for (final Map.Entry<Square, Piece> entry : chessBoard.getPieces().entrySet()) {
                 final Square square = entry.getKey();
                 final Piece piece = entry.getValue();
