@@ -116,7 +116,6 @@ class ChessBoardTest {
 
         final Square blackSource = new Square(File.E, Rank.SEVEN);
         final Square blackTarget = new Square(File.E, Rank.FIVE);
-        final Piece blackPiece = chessBoard.getPieces().get(blackSource);
         chessBoard.move(blackSource, blackTarget);
 
         // when
