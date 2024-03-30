@@ -11,34 +11,25 @@ import domain.piece.sliding.Queen;
 import domain.piece.sliding.Rook;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 public final class ChessBoardDAO {
+    private final Connection connection;
 
-    private static final String SERVER = "localhost:13306";
-    private static final String DATABASE = "chess";
-    private static final String OPTION = "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
-    private static final String USERNAME = "root";
-    private static final String PASSWORD = "root";
+    public ChessBoardDAO(final Connection connection) {
+        this.connection = connection;
+    }
 
-    public Connection getConnection() {
-        try {
-            return DriverManager.getConnection("jdbc:mysql://" + SERVER + "/" + DATABASE + OPTION, USERNAME, PASSWORD);
-        } catch (final SQLException e) {
-            System.err.println("DB 연결 오류:" + e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
+    public ChessBoardDAO() {
+        this.connection = ConnectionGenerator.getConnection();
     }
 
     public Map<Square, Piece> findAll() {
         final var query = "SELECT * FROM chessboard";
-        try (final var connection = getConnection();
-             final var preparedStatement = connection.prepareStatement(query)) {
+        try (final var preparedStatement = connection.prepareStatement(query)) {
             final ResultSet resultSet = preparedStatement.executeQuery();
 
             final Map<Square, Piece> pieces = new HashMap<>();
@@ -78,8 +69,7 @@ public final class ChessBoardDAO {
         final String deleteQuery = "DELETE FROM chessboard";
         final String insertQuery = "INSERT INTO chessboard (`piece`, `team`, `rank`, `file`) VALUES (?, ?, ?, ?)";
 
-        try (final Connection connection = getConnection();
-             final var deleteStatement = connection.prepareStatement(deleteQuery);
+        try (final var deleteStatement = connection.prepareStatement(deleteQuery);
              final var insertStatement = connection.prepareStatement(insertQuery)) {
 
             deleteStatement.executeUpdate();
