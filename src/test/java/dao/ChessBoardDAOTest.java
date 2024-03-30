@@ -36,7 +36,7 @@ class ChessBoardDAOTest {
 
     @DisplayName("체스보드 현황을 업데이트 한다.")
     @Test
-    void update() {
+    void update() throws SQLException {
         // given
         final Map<Square, Piece> pieces = Map.of(
                 new Square(File.D, Rank.SEVEN), new King(Team.BLACK),

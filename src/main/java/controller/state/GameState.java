@@ -1,13 +1,15 @@
 package controller.state;
 
-public interface GameState {
-    GameState start();
+import java.sql.SQLException;
 
-    GameState play();
+public interface GameState {
+    GameState start() throws SQLException;
+
+    GameState play() throws SQLException;
 
     GameState status();
 
-    GameState end();
+    GameState end() throws SQLException;
 
     default boolean isNotEnd() {
         return true;

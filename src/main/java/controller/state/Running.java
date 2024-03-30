@@ -9,6 +9,8 @@ import dto.StatusDTO;
 import view.InputView;
 import view.OutputView;
 
+import java.sql.SQLException;
+
 public class Running implements GameState {
     private final ChessBoard chessBoard;
     private final OutputView outputView = new OutputView();
@@ -24,7 +26,7 @@ public class Running implements GameState {
     }
 
     @Override
-    public GameState play() {
+    public GameState play() throws SQLException {
 
         final Square source = readSquare();
         final Square target = readSquare();
@@ -54,7 +56,7 @@ public class Running implements GameState {
     }
 
     @Override
-    public GameState end() {
+    public GameState end() throws SQLException {
         final ChessBoardDAO chessBoardDAO = new ChessBoardDAO();
         chessBoardDAO.update(chessBoard);
         final TurnDAO turnDAO = new TurnDAO();

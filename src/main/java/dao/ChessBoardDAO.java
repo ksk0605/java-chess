@@ -33,45 +33,51 @@ public final class ChessBoardDAO {
             final ResultSet resultSet = preparedStatement.executeQuery();
 
             final Map<Square, Piece> pieces = new HashMap<>();
-
             while (resultSet.next()) {
-                final File file = File.from(resultSet.getString("file"));
-                final Rank rank = Rank.from(Integer.parseInt(resultSet.getString("rank")));
-                final Square square = new Square(file, rank);
-
-                final String pieceName = resultSet.getString("piece");
-                final Piece piece;
-                final Team team = Team.from(resultSet.getString("team"));
-                switch (pieceName) {
-                    case "king" -> piece = new King(team);
-                    case "queen" -> piece = new Queen(team);
-                    case "rook" -> piece = new Rook(team);
-                    case "bishop" -> piece = new Bishop(team);
-                    case "knight" -> piece = new Knight(team);
-                    default -> {
-                        if (team == Team.BLACK) {
-                            piece = new BlackPawn();
-                        } else {
-                            piece = new WhitePawn();
-                        }
-                    }
-                }
+                final Square square = createSquare(resultSet);
+                final Piece piece = createPiece(resultSet);
                 pieces.put(square, piece);
             }
-
             return pieces;
         } catch (final SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void update(final ChessBoard chessBoard) {
+    private static Square createSquare(final ResultSet resultSet) throws SQLException {
+        final File file = File.from(resultSet.getString("file"));
+        final Rank rank = Rank.from(Integer.parseInt(resultSet.getString("rank")));
+        return new Square(file, rank);
+    }
+
+    private static Piece createPiece(final ResultSet resultSet) throws SQLException {
+        final String pieceName = resultSet.getString("piece");
+        final Piece piece;
+        final Team team = Team.from(resultSet.getString("team"));
+        switch (pieceName) {
+            case "king" -> piece = new King(team);
+            case "queen" -> piece = new Queen(team);
+            case "rook" -> piece = new Rook(team);
+            case "bishop" -> piece = new Bishop(team);
+            case "knight" -> piece = new Knight(team);
+            default -> {
+                if (team == Team.BLACK) {
+                    piece = new BlackPawn();
+                } else {
+                    piece = new WhitePawn();
+                }
+            }
+        }
+        return piece;
+    }
+
+    public void update(final ChessBoard chessBoard) throws SQLException {
         final String deleteQuery = "DELETE FROM chessboard";
         final String insertQuery = "INSERT INTO chessboard (`piece`, `team`, `rank`, `file`) VALUES (?, ?, ?, ?)";
 
         try (final var deleteStatement = connection.prepareStatement(deleteQuery);
              final var insertStatement = connection.prepareStatement(insertQuery)) {
-
+            connection.setAutoCommit(false);
             deleteStatement.executeUpdate();
 
             for (final Map.Entry<Square, Piece> entry : chessBoard.getPieces().entrySet()) {
@@ -87,8 +93,9 @@ public final class ChessBoardDAO {
                 insertStatement.setString(4, square.file().name().toLowerCase());
                 insertStatement.executeUpdate();
             }
-
+            connection.commit();
         } catch (final SQLException e) {
+            connection.rollback();
             throw new RuntimeException(e);
         }
     }

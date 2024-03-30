@@ -8,13 +8,15 @@ import domain.ChessBoardInitializer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.sql.SQLException;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
 
 class GameStateTest {
     @DisplayName("게임 준비 -> 게임 중")
     @Test
-    void startWhenReady() {
+    void startWhenReady() throws SQLException {
         // given
         final GameState state = new Ready();
         // when
@@ -36,7 +38,7 @@ class GameStateTest {
 
     @DisplayName("게임 준비 -> 게임 종료")
     @Test
-    void endWhenReady() {
+    void endWhenReady() throws SQLException {
         // given
         final GameState state = new Ready();
         // when
@@ -48,7 +50,7 @@ class GameStateTest {
     @DisplayName("게임 중 -> 게임 중")
     @Test
         // TODO: 구조변경으로 인한 테스트 깨짐 해결
-    void playWhenRunning() {
+    void playWhenRunning() throws SQLException {
         // given
         final GameState state = new Running(ChessBoardInitializer.initialize());
         // when
@@ -70,7 +72,7 @@ class GameStateTest {
 
     @DisplayName("게임 중 -> 게임 종료")
     @Test
-    void endWhenRunning() {
+    void endWhenRunning() throws SQLException {
         // given
         final GameState state = new Running(ChessBoardInitializer.initialize());
         // when

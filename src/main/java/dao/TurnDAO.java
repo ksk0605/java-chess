@@ -31,13 +31,16 @@ public class TurnDAO {
         }
     }
 
-    public void update(final Team team) {
+    public void update(final Team team) throws SQLException {
         final var query = "update turn set team = ?";
         try (final var preparedStatement = connection.prepareStatement(query)) {
+            connection.setAutoCommit(false);
             preparedStatement.setString(1, team.name().toLowerCase());
 
             preparedStatement.executeUpdate();
+            connection.commit();
         } catch (final SQLException e) {
+            connection.rollback();
             throw new RuntimeException(e);
         }
     }

@@ -2,6 +2,8 @@ package controller;
 
 import controller.state.GameState;
 
+import java.sql.SQLException;
+
 public enum Menu {
     START("start"),
     MOVE("move"),
@@ -23,7 +25,7 @@ public enum Menu {
         throw new IllegalArgumentException("허용하지 않은 커멘드 입니다 start | end | move {} {} 로 입력해주세요.");
     }
 
-    public GameState execute(final GameState state) {
+    public GameState execute(final GameState state) throws SQLException {
         if (isStart()) {
             return state.start();
         }

@@ -30,7 +30,7 @@ class TurnDAOTest {
 
     @DisplayName("턴 진행상황을 업데이트 한다.")
     @Test
-    void updateTurn() {
+    void updateTurn() throws SQLException {
         // when
         turnDAO.update(Team.BLACK);
         final Team team = turnDAO.find();
