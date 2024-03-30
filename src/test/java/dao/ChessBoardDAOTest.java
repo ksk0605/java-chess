@@ -28,7 +28,6 @@ class ChessBoardDAOTest {
 
     @AfterEach
     void tearDown() throws SQLException {
-        // 테스트 이후에는 모든 변경사항을 롤백
         connection.rollback();
         connection.close();
     }
