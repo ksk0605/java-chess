@@ -32,7 +32,6 @@ class ChessBoardDAOTest {
         connection.close();
     }
 
-
     @DisplayName("체스보드 현황을 업데이트 한다.")
     @Test
     void update() throws SQLException {
