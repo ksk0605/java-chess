@@ -33,3 +33,6 @@ out/
 
 ### docker ###
 docker/
+
+### properties ###
+/src/main/resources/application.properties
