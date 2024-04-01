@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Pawn extends Piece {
+    public static final int SCORE = 1;
+
     Pawn(final Team team) {
         super(team);
     }
@@ -30,8 +32,8 @@ public abstract class Pawn extends Piece {
     }
 
     @Override
-    public double score() {
-        return 1;
+    public double getScore() {
+        return SCORE;
     }
 
     @Override

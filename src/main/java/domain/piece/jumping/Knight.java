@@ -6,6 +6,8 @@ import domain.Team;
 import java.util.List;
 
 public class Knight extends JumpingPiece {
+    public static final double SCORE = 2.5;
+
     public Knight(final Team team) {
         super(team);
     }
@@ -25,7 +27,7 @@ public class Knight extends JumpingPiece {
     }
 
     @Override
-    public double score() {
-        return 2.5;
+    public double getScore() {
+        return SCORE;
     }
 }

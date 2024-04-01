@@ -6,6 +6,8 @@ import domain.Team;
 import java.util.List;
 
 public class Queen extends SlidingPiece {
+    public static final int SCORE = 9;
+
     public Queen(final Team team) {
         super(team);
     }
@@ -24,7 +26,7 @@ public class Queen extends SlidingPiece {
     }
 
     @Override
-    public double score() {
-        return 9;
+    public double getScore() {
+        return SCORE;
     }
 }

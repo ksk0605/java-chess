@@ -6,6 +6,8 @@ import domain.Team;
 import java.util.List;
 
 public class Rook extends SlidingPiece {
+    public static final int SCORE = 5;
+
     public Rook(final Team team) {
         super(team);
     }
@@ -20,7 +22,7 @@ public class Rook extends SlidingPiece {
     }
 
     @Override
-    public double score() {
-        return 5;
+    public double getScore() {
+        return SCORE;
     }
 }

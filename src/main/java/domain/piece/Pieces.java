@@ -28,7 +28,7 @@ public class Pieces {
         return pieces.values().stream()
                 .filter(piece -> piece.team() == team)
                 .filter(piece -> !piece.isPawn())
-                .mapToDouble(Piece::score)
+                .mapToDouble(Piece::getScore)
                 .sum();
     }
 

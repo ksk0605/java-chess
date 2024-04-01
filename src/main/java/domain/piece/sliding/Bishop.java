@@ -6,6 +6,8 @@ import domain.Team;
 import java.util.List;
 
 public class Bishop extends SlidingPiece {
+    public static final int SCORE = 3;
+
     public Bishop(final Team team) {
         super(team);
     }
@@ -20,7 +22,7 @@ public class Bishop extends SlidingPiece {
     }
 
     @Override
-    public double score() {
-        return 3;
+    public double getScore() {
+        return SCORE;
     }
 }

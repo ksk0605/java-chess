@@ -43,7 +43,7 @@ public abstract class Piece {
         return team;
     }
 
-    public abstract double score();
+    public abstract double getScore();
 
     public boolean isKing() {
         return false;
