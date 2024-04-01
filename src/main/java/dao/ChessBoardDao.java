@@ -89,7 +89,7 @@ public final class ChessBoardDao {
                     insertStatement.setString(1, piece.getClass().getSimpleName().toLowerCase());
                 }
                 insertStatement.setString(2, piece.team().name().toLowerCase());
-                insertStatement.setString(3, String.valueOf(square.rank().index()));
+                insertStatement.setString(3, String.valueOf(square.rank().getIndex()));
                 insertStatement.setString(4, square.file().name().toLowerCase());
                 insertStatement.executeUpdate();
             }

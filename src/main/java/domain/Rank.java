@@ -38,7 +38,7 @@ public enum Rank {
         return false;
     }
 
-    public int index() {
+    public int getIndex() {
         return index;
     }
 }
