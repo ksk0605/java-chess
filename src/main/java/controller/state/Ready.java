@@ -1,12 +1,12 @@
 package controller.state;
 
-import dao.ChessBoardDAO;
-import dao.TurnDAO;
+import dao.ChessBoardDao;
+import dao.TurnDao;
 import domain.ChessBoard;
 import domain.Square;
 import domain.Team;
 import domain.piece.Piece;
-import dto.ChessBoardDTO;
+import dto.ChessBoardDto;
 import view.OutputView;
 
 import java.util.Map;
@@ -16,14 +16,14 @@ public class Ready implements GameState {
 
     @Override
     public GameState start() {
-        final ChessBoardDAO chessBoardDAO = new ChessBoardDAO();
+        final ChessBoardDao chessBoardDAO = new ChessBoardDao();
         final Map<Square, Piece> pieces = chessBoardDAO.findAll();
-        final TurnDAO turnDAO = new TurnDAO();
+        final TurnDao turnDAO = new TurnDao();
         final Team team = turnDAO.find();
 
         final ChessBoard chessBoard = new ChessBoard(pieces, team);
 
-        outputView.printChessBoard(ChessBoardDTO.from(chessBoard.getPieces()));
+        outputView.printChessBoard(ChessBoardDto.from(chessBoard.getPieces()));
         return new Running(chessBoard);
     }
 

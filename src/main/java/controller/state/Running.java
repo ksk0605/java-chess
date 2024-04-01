@@ -1,11 +1,11 @@
 package controller.state;
 
 import controller.MoveCommand;
-import dao.ChessBoardDAO;
-import dao.TurnDAO;
+import dao.ChessBoardDao;
+import dao.TurnDao;
 import domain.*;
-import dto.ChessBoardDTO;
-import dto.StatusDTO;
+import dto.ChessBoardDto;
+import dto.StatusDto;
 import view.InputView;
 import view.OutputView;
 
@@ -32,11 +32,11 @@ public class Running implements GameState {
         final Square target = readSquare();
 
         chessBoard.move(source, target);
-        outputView.printChessBoard(ChessBoardDTO.from(chessBoard.getPieces()));
+        outputView.printChessBoard(ChessBoardDto.from(chessBoard.getPieces()));
 
         if (chessBoard.isFinished()) {
-            outputView.printStatus(StatusDTO.from(chessBoard.status()));
-            final ChessBoardDAO chessBoardDAO = new ChessBoardDAO();
+            outputView.printStatus(StatusDto.from(chessBoard.status()));
+            final ChessBoardDao chessBoardDAO = new ChessBoardDao();
             chessBoardDAO.update(ChessBoardInitializer.initialize());
             return new End();
         }
@@ -51,15 +51,15 @@ public class Running implements GameState {
 
     @Override
     public GameState status() {
-        outputView.printStatus(StatusDTO.from(chessBoard.status()));
+        outputView.printStatus(StatusDto.from(chessBoard.status()));
         return new Running(chessBoard);
     }
 
     @Override
     public GameState end() throws SQLException {
-        final ChessBoardDAO chessBoardDAO = new ChessBoardDAO();
+        final ChessBoardDao chessBoardDAO = new ChessBoardDao();
         chessBoardDAO.update(chessBoard);
-        final TurnDAO turnDAO = new TurnDAO();
+        final TurnDao turnDAO = new TurnDao();
         turnDAO.update(chessBoard.currentTeam());
         return new End();
     }

@@ -1,7 +1,7 @@
 package view;
 
-import dto.ChessBoardDTO;
-import dto.StatusDTO;
+import dto.ChessBoardDto;
+import dto.StatusDto;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ public class OutputView {
                 > 게임 이동 : move source위치 target위치 - 예. move b2 b3""");
     }
 
-    public void printChessBoard(final ChessBoardDTO chessBoardDTO) {
+    public void printChessBoard(final ChessBoardDto chessBoardDTO) {
         final List<String> pieces = chessBoardDTO.pieces();
         for (int i = 0; i < pieces.size(); i += 8) {
             final int end = Math.min(i + 8, pieces.size());
@@ -27,7 +27,7 @@ public class OutputView {
         System.out.println(message);
     }
 
-    public void printStatus(final StatusDTO status) {
+    public void printStatus(final StatusDto status) {
         System.out.println("백 진영 점수 : " + status.whiteScore());
         System.out.println("흑 진영 점수 : " + status.blackScore());
 

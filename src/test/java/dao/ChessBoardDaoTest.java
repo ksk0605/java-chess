@@ -14,8 +14,8 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-class ChessBoardDAOTest {
-    private ChessBoardDAO chessBoardDAO;
+class ChessBoardDaoTest {
+    private ChessBoardDao chessBoardDAO;
     private Connection connection;
 
     @BeforeEach
@@ -23,7 +23,7 @@ class ChessBoardDAOTest {
         connection = ConnectionGenerator.getConnection();
         connection.setAutoCommit(false);
 
-        chessBoardDAO = new ChessBoardDAO(connection);
+        chessBoardDAO = new ChessBoardDao(connection);
     }
 
     @AfterEach

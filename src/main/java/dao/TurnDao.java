@@ -6,14 +6,14 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class TurnDAO {
+public class TurnDao {
     private final Connection connection;
 
-    public TurnDAO() {
+    public TurnDao() {
         connection = ConnectionGenerator.getConnection();
     }
 
-    public TurnDAO(final Connection connection) {
+    public TurnDao(final Connection connection) {
         this.connection = connection;
     }
 

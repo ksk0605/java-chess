@@ -16,14 +16,14 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class ChessBoardDAO {
+public final class ChessBoardDao {
     private final Connection connection;
 
-    public ChessBoardDAO(final Connection connection) {
+    public ChessBoardDao(final Connection connection) {
         this.connection = connection;
     }
 
-    public ChessBoardDAO() {
+    public ChessBoardDao() {
         this.connection = ConnectionGenerator.getConnection();
     }
 

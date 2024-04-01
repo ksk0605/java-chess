@@ -10,16 +10,16 @@ import org.junit.jupiter.api.Test;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-class TurnDAOTest {
+class TurnDaoTest {
     Connection connection;
-    TurnDAO turnDAO;
+    TurnDao turnDAO;
 
     @BeforeEach
     void setUp() throws SQLException {
         connection = ConnectionGenerator.getConnection();
         connection.setAutoCommit(false);
 
-        turnDAO = new TurnDAO(connection);
+        turnDAO = new TurnDao(connection);
     }
 
     @AfterEach
