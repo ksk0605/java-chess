@@ -18,7 +18,7 @@ public class ChessController {
 
     public void run() {
         outputView.printHeader();
-        while (state.isNotEnd()) {
+        while (state.isContinue()) {
             try {
                 final Menu menu = inputView.readMenu();
                 state = menu.execute(state);

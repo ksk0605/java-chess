@@ -22,7 +22,7 @@ public class End implements GameState {
     }
 
     @Override
-    public boolean isNotEnd() {
+    public boolean isContinue() {
         throw new UnsupportedOperationException("게임이 이미 종료되었습니다.");
     }
 }

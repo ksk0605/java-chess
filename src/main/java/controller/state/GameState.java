@@ -11,7 +11,7 @@ public interface GameState {
 
     GameState end() throws SQLException;
 
-    default boolean isNotEnd() {
+    default boolean isContinue() {
         return true;
     }
 }
