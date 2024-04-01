@@ -26,6 +26,10 @@ public class Square {
         return this.rank == rank;
     }
 
+    public boolean isSameFile(final Square square) {
+        return this.file == square.file;
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) {
@@ -39,7 +43,7 @@ public class Square {
 
     public File file() {
         return file;
-    }
+    } // TODO: get 으로 바꾸기
 
     public Rank rank() {
         return rank;

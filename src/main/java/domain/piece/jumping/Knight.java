@@ -1,9 +1,12 @@
 package domain.piece.jumping;
 
 import domain.Direction;
+import domain.Square;
 import domain.Team;
+import domain.piece.Piece;
 
 import java.util.List;
+import java.util.Map;
 
 public class Knight extends JumpingPiece {
     public static final double SCORE = 2.5;
@@ -27,7 +30,7 @@ public class Knight extends JumpingPiece {
     }
 
     @Override
-    public double getScore() {
+    public double getScore(final Map<Square, Piece> pieces, final Square square) {
         return SCORE;
     }
 }

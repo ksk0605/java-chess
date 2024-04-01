@@ -1,9 +1,12 @@
 package domain.piece.sliding;
 
 import domain.Direction;
+import domain.Square;
 import domain.Team;
+import domain.piece.Piece;
 
 import java.util.List;
+import java.util.Map;
 
 public class Rook extends SlidingPiece {
     public static final int SCORE = 5;
@@ -22,7 +25,7 @@ public class Rook extends SlidingPiece {
     }
 
     @Override
-    public double getScore() {
+    public double getScore(final Map<Square, Piece> pieces, final Square square) {
         return SCORE;
     }
 }

@@ -43,7 +43,7 @@ public abstract class Piece {
         return team;
     }
 
-    public abstract double getScore();
+    public abstract double getScore(Map<Square, Piece> pieces, Square square);
 
     public boolean isKing() {
         return false;

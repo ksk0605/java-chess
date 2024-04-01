@@ -1,12 +1,10 @@
 package domain.piece;
 
-import domain.File;
 import domain.Square;
 import domain.Team;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class Pieces {
     final Map<Square, Piece> pieces;
@@ -21,28 +19,14 @@ public class Pieces {
     }
 
     public double score(final Team team) {
-        return getScoreWithoutPawn(team) + getTotalPawnScore(team);
+        return sumScores(team);
     }
 
-    private double getScoreWithoutPawn(final Team team) {
-        return pieces.values().stream()
-                .filter(piece -> piece.team() == team)
-                .filter(piece -> !piece.isPawn())
-                .mapToDouble(Piece::getScore)
-                .sum();
-    }
-
-    private double getTotalPawnScore(final Team team) {
-        return countPawnsByFile(pieces, team).values().stream()
-                .mapToDouble(aLong -> aLong >= 2 ? aLong * 0.5 : aLong)
-                .sum();
-    }
-
-    private Map<File, Long> countPawnsByFile(final Map<Square, Piece> pieces, final Team team) {
+    private double sumScores(final Team team) {
         return pieces.entrySet().stream()
                 .filter(entry -> entry.getValue().team() == team)
-                .filter(entry -> entry.getValue().isPawn())
-                .collect(Collectors.groupingBy(entry -> entry.getKey().file(), Collectors.counting()));
+                .mapToDouble(entry -> entry.getValue().getScore(pieces, entry.getKey()))
+                .sum();
     }
 
     public boolean hasPiece(final Square source) {

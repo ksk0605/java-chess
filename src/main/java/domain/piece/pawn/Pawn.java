@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Pawn extends Piece {
-    public static final int SCORE = 1;
+    public static final int SCORE = 1; // TODO: private 으로 변경
 
     Pawn(final Team team) {
         super(team);
@@ -32,7 +32,15 @@ public abstract class Pawn extends Piece {
     }
 
     @Override
-    public double getScore() {
+    public double getScore(final Map<Square, Piece> pieces, final Square square) {
+        final long count = pieces.entrySet().stream()
+                .filter(entry -> entry.getValue().isPawn())
+                .filter(entry -> entry.getValue().isSameTeam(this))
+                .filter(entry -> entry.getKey().isSameFile(square))
+                .count();
+        if (count > 1) {
+            return 0.5;
+        }
         return SCORE;
     }
 
