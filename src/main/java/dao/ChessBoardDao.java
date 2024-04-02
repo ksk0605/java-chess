@@ -17,18 +17,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 public final class ChessBoardDao {
-    private final Connection connection;
+    private final ConnectionPool connectionPool;
 
-    public ChessBoardDao(final Connection connection) {
-        this.connection = connection;
-    }
-
-    public ChessBoardDao() {
-        this.connection = ConnectionGenerator.getConnection();
+    public ChessBoardDao(final ConnectionPool connectionPool) {
+        this.connectionPool = connectionPool;
     }
 
     public Map<Square, Piece> findAll() {
         final var query = "SELECT * FROM chessboard";
+        final Connection connection = connectionPool.getConnection();
+
         try (final var preparedStatement = connection.prepareStatement(query)) {
             final ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -38,8 +36,10 @@ public final class ChessBoardDao {
                 final Piece piece = createPiece(resultSet);
                 pieces.put(square, piece);
             }
+            connectionPool.releaseConnection(connection);
             return pieces;
         } catch (final SQLException e) {
+            connectionPool.releaseConnection(connection);
             throw new RuntimeException(e);
         }
     }
@@ -74,6 +74,7 @@ public final class ChessBoardDao {
     public void update(final ChessBoard chessBoard) throws SQLException {
         final String deleteQuery = "DELETE FROM chessboard";
         final String insertQuery = "INSERT INTO chessboard (`piece`, `team`, `rank`, `file`) VALUES (?, ?, ?, ?)";
+        final Connection connection = connectionPool.getConnection();
 
         try (final var deleteStatement = connection.prepareStatement(deleteQuery);
              final var insertStatement = connection.prepareStatement(insertQuery)) {
@@ -94,8 +95,10 @@ public final class ChessBoardDao {
                 insertStatement.executeUpdate();
             }
             connection.commit();
+            connectionPool.releaseConnection(connection);
         } catch (final SQLException e) {
             connection.rollback();
+            connectionPool.releaseConnection(connection);
             throw new RuntimeException(e);
         }
     }

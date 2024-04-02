@@ -1,6 +1,7 @@
 package controller.state;
 
 import dao.ChessBoardDao;
+import dao.MySqlConnectionPool;
 import dao.TurnDao;
 import domain.ChessBoard;
 import domain.Square;
@@ -9,16 +10,17 @@ import domain.piece.Piece;
 import dto.ChessBoardDto;
 import view.OutputView;
 
+import java.sql.SQLException;
 import java.util.Map;
 
 public class Ready implements GameState {
     OutputView outputView = new OutputView();
 
     @Override
-    public GameState start() {
-        final ChessBoardDao chessBoardDAO = new ChessBoardDao();
+    public GameState start() throws SQLException {
+        final ChessBoardDao chessBoardDAO = new ChessBoardDao(new MySqlConnectionPool());
         final Map<Square, Piece> pieces = chessBoardDAO.findAll();
-        final TurnDao turnDAO = new TurnDao();
+        final TurnDao turnDAO = new TurnDao(new MySqlConnectionPool());
         final Team team = turnDAO.find();
 
         final ChessBoard chessBoard = new ChessBoard(pieces, team);

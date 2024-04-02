@@ -2,6 +2,7 @@ package controller.state;
 
 import controller.MoveCommand;
 import dao.ChessBoardDao;
+import dao.MySqlConnectionPool;
 import dao.TurnDao;
 import domain.*;
 import dto.ChessBoardDto;
@@ -36,7 +37,7 @@ public class Running implements GameState {
 
         if (chessBoard.isFinished()) {
             outputView.printStatus(StatusDto.from(chessBoard.status()));
-            final ChessBoardDao chessBoardDAO = new ChessBoardDao();
+            final ChessBoardDao chessBoardDAO = new ChessBoardDao(new MySqlConnectionPool());
             chessBoardDAO.update(ChessBoardInitializer.initialize());
             return new End();
         }
@@ -57,9 +58,9 @@ public class Running implements GameState {
 
     @Override
     public GameState end() throws SQLException {
-        final ChessBoardDao chessBoardDAO = new ChessBoardDao();
+        final ChessBoardDao chessBoardDAO = new ChessBoardDao(new MySqlConnectionPool());
         chessBoardDAO.update(chessBoard);
-        final TurnDao turnDAO = new TurnDao();
+        final TurnDao turnDAO = new TurnDao(new MySqlConnectionPool());
         turnDAO.update(chessBoard.currentTeam());
         return new End();
     }
