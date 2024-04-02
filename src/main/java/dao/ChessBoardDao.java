@@ -11,6 +11,7 @@ import domain.piece.sliding.Queen;
 import domain.piece.sliding.Rook;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -44,13 +45,13 @@ public class ChessBoardDao {
         }
     }
 
-    private static Square createSquare(final ResultSet resultSet) throws SQLException {
+    private Square createSquare(final ResultSet resultSet) throws SQLException {
         final File file = File.from(resultSet.getString("file"));
         final Rank rank = Rank.from(Integer.parseInt(resultSet.getString("rank")));
         return new Square(file, rank);
     }
 
-    private static Piece createPiece(final ResultSet resultSet) throws SQLException {
+    private Piece createPiece(final ResultSet resultSet) throws SQLException {
         final String pieceName = resultSet.getString("piece");
         final Piece piece;
         final Team team = Team.from(resultSet.getString("team"));
@@ -82,16 +83,7 @@ public class ChessBoardDao {
             deleteStatement.executeUpdate();
 
             for (final Map.Entry<Square, Piece> entry : chessBoard.getPieces().entrySet()) {
-                final Square square = entry.getKey();
-                final Piece piece = entry.getValue();
-                if (piece instanceof BlackPawn || piece instanceof WhitePawn) {
-                    insertStatement.setString(1, "pawn");
-                } else {
-                    insertStatement.setString(1, piece.getClass().getSimpleName().toLowerCase());
-                }
-                insertStatement.setString(2, piece.team().name().toLowerCase());
-                insertStatement.setString(3, String.valueOf(square.rank().getIndex()));
-                insertStatement.setString(4, square.file().name().toLowerCase());
+                setInsertStatement(entry, insertStatement);
                 insertStatement.executeUpdate();
             }
             connection.commit();
@@ -101,5 +93,18 @@ public class ChessBoardDao {
             connectionPool.releaseConnection(connection);
             throw new RuntimeException(e);
         }
+    }
+
+    private void setInsertStatement(final Map.Entry<Square, Piece> entry, final PreparedStatement insertStatement) throws SQLException {
+        final Square square = entry.getKey();
+        final Piece piece = entry.getValue();
+        if (piece instanceof BlackPawn || piece instanceof WhitePawn) {
+            insertStatement.setString(1, "pawn");
+        } else {
+            insertStatement.setString(1, piece.getClass().getSimpleName().toLowerCase());
+        }
+        insertStatement.setString(2, piece.team().name().toLowerCase());
+        insertStatement.setString(3, String.valueOf(square.rank().getIndex()));
+        insertStatement.setString(4, square.file().name().toLowerCase());
     }
 }

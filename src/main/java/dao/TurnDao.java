@@ -20,16 +20,20 @@ public class TurnDao {
         try (final var preparedStatement = connection.prepareStatement(query)) {
             final ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                final String team = resultSet.getString("team");
-                return Team.from(team);
+                return createTeam(resultSet);
             }
-            connectionPool.releaseConnection(connection);
 
+            connectionPool.releaseConnection(connection);
             throw new SQLException("현재 턴을 DB에서 가져오는데 실패했습니다.");
         } catch (final SQLException e) {
             connectionPool.releaseConnection(connection);
             throw new RuntimeException(e);
         }
+    }
+
+    private Team createTeam(final ResultSet resultSet) throws SQLException {
+        final String team = resultSet.getString("team");
+        return Team.from(team);
     }
 
     public void update(final Team team) throws SQLException {
