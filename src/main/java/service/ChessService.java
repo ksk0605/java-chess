@@ -1,7 +1,6 @@
 package service;
 
 import dao.ChessBoardDao;
-import dao.MySqlConnectionPool;
 import dao.TurnDao;
 import domain.ChessBoard;
 import domain.Square;
@@ -16,9 +15,9 @@ public class ChessService {
     private final ChessBoardDao chessBoardDao;
     private final TurnDao turnDao;
 
-    public ChessService() {
-        this.chessBoardDao = new ChessBoardDao(new MySqlConnectionPool());
-        this.turnDao = new TurnDao(new MySqlConnectionPool());
+    public ChessService(final ChessBoardDao chessBoardDao, final TurnDao turnDao) {
+        this.chessBoardDao = chessBoardDao;
+        this.turnDao = turnDao;
     }
 
     public void start() {

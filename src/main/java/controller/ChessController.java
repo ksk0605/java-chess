@@ -1,5 +1,8 @@
 package controller;
 
+import dao.ChessBoardDao;
+import dao.MySqlConnectionPool;
+import dao.TurnDao;
 import domain.File;
 import domain.Rank;
 import domain.Square;
@@ -17,7 +20,14 @@ public class ChessController {
     private final ChessService chessService;
 
     public ChessController() {
-        this.chessService = new ChessService();
+        chessService = createChessService();
+    }
+
+    private ChessService createChessService() {
+        final MySqlConnectionPool mySqlConnectionPool = new MySqlConnectionPool();
+        final ChessBoardDao chessBoardDao = new ChessBoardDao(mySqlConnectionPool);
+        final TurnDao turnDao = new TurnDao(mySqlConnectionPool);
+        return new ChessService(chessBoardDao, turnDao);
     }
 
     public void run() {

@@ -16,7 +16,7 @@ import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
-public final class ChessBoardDao {
+public class ChessBoardDao {
     private final ConnectionPool connectionPool;
 
     public ChessBoardDao(final ConnectionPool connectionPool) {
