@@ -35,8 +35,7 @@ public abstract class SlidingPiece extends Piece {
 
         while (movableSource.canMove(direction)) {
             movableSource = movableSource.next(direction);
-            // TODO: Pieces 를 넘겨주어 가독성 개선 & 순환참조 인터페이스로 해결
-            if (pieces.containsKey(movableSource) && pieces.get(movableSource).isSameTeam(pieces.get(source))) {
+            if (hasSameTeamPieceOnTarget(source, movableSource, pieces)) {
                 break;
             }
             movableSquares.add(movableSource);

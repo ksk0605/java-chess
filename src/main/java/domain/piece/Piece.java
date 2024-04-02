@@ -23,6 +23,11 @@ public abstract class Piece {
 
     protected abstract boolean canMove(Square source, Square target, Map<Square, Piece> pieces);
 
+
+    protected boolean hasSameTeamPieceOnTarget(final Square source, final Square target, final Map<Square, Piece> pieces) {
+        return pieces.containsKey(target) && pieces.get(target).isSameTeam(pieces.get(source));
+    }
+
     public boolean isSameTeam(final Piece other) {
         return this.team == other.team;
     }

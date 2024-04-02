@@ -20,6 +20,6 @@ public abstract class JumpingPiece extends Piece {
         return movableDirections().stream()
                 .filter(source::canMove)
                 .map(source::next)
-                .anyMatch(square -> square.equals(target));
+                .anyMatch(square -> square.equals(target) && !hasSameTeamPieceOnTarget(source, target, pieces));
     }
 }
