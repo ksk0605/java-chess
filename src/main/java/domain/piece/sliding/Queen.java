@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Queen extends SlidingPiece {
-    public static final int SCORE = 9;
+    private static final int SCORE = 9;
 
     public Queen(final Team team) {
         super(team);

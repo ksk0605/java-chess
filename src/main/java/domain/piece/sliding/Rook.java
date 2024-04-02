@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Rook extends SlidingPiece {
-    public static final int SCORE = 5;
+    private static final int SCORE = 5;
 
     public Rook(final Team team) {
         super(team);

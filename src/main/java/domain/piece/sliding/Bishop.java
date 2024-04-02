@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Bishop extends SlidingPiece {
-    public static final int SCORE = 3;
+    private static final int SCORE = 3;
 
     public Bishop(final Team team) {
         super(team);

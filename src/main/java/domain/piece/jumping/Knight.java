@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Knight extends JumpingPiece {
-    public static final double SCORE = 2.5;
+    private static final double SCORE = 2.5;
 
     public Knight(final Team team) {
         super(team);

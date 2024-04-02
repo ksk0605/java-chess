@@ -9,7 +9,7 @@ import domain.piece.Piece;
 import java.util.Map;
 
 public class WhitePawn extends Pawn {
-    public static final Rank INITIAL_SQUARE = Rank.TWO;
+    private static final Rank INITIAL_SQUARE = Rank.TWO;
 
     public WhitePawn() {
         super(Team.WHITE);

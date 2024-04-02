@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Pawn extends Piece {
-    public static final int SCORE = 1; // TODO: private 으로 변경
+    private static final int SCORE = 1;
 
     Pawn(final Team team) {
         super(team);
