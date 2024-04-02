@@ -21,8 +21,7 @@ class ChessServiceTest {
     ChessService chessService;
 
     final Map<Square, Piece> pieces = new HashMap<>(
-            Map.of(
-                    new Square(File.E, Rank.SEVEN), new BlackPawn(),
+            Map.of(new Square(File.E, Rank.SEVEN), new BlackPawn(),
                     new Square(File.F, Rank.SIX), new WhitePawn())
     );
 
