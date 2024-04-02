@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class MySqlConnectionPool implements ConnectionPool {
+    public static final int MAX_CONNECTION_COUNT = 10;
     private final Queue<Connection> connections;
 
     public MySqlConnectionPool() {
@@ -19,7 +20,7 @@ public class MySqlConnectionPool implements ConnectionPool {
         final Queue<Connection> connections = new LinkedList<>();
         try {
             final DatabaseConfig databaseConfig = new DatabaseConfig();
-            for (int i = 0; i < 10; i++) {
+            for (int i = 0; i < MAX_CONNECTION_COUNT; i++) {
                 final Connection connection = DriverManager.getConnection(
                         "jdbc:mysql://" + databaseConfig.getServer() + "/" + databaseConfig.getDatabase() + databaseConfig.getOption(),
                         databaseConfig.getUsername(),
