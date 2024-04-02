@@ -10,6 +10,7 @@ import java.util.Queue;
 
 public class MySqlConnectionPool implements ConnectionPool {
     public static final int MAX_CONNECTION_COUNT = 10;
+    
     private final Queue<Connection> connections;
 
     public MySqlConnectionPool() {
