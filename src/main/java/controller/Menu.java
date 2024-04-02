@@ -21,7 +21,6 @@ public enum Menu {
         throw new IllegalArgumentException("허용하지 않은 커멘드 입니다 start | end | move {} {} 로 입력해주세요.");
     }
 
-
     public boolean isStart() {
         return this == START;
     }

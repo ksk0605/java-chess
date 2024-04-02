@@ -10,7 +10,7 @@ import java.util.Queue;
 
 public class MySqlConnectionPool implements ConnectionPool {
     public static final int MAX_CONNECTION_COUNT = 10;
-    
+
     private final Queue<Connection> connections;
 
     public MySqlConnectionPool() {
@@ -22,10 +22,7 @@ public class MySqlConnectionPool implements ConnectionPool {
         try {
             final DatabaseConfig databaseConfig = new DatabaseConfig();
             for (int i = 0; i < MAX_CONNECTION_COUNT; i++) {
-                final Connection connection = DriverManager.getConnection(
-                        "jdbc:mysql://" + databaseConfig.getServer() + "/" + databaseConfig.getDatabase() + databaseConfig.getOption(),
-                        databaseConfig.getUsername(),
-                        databaseConfig.getPassword());
+                final Connection connection = createConnection(databaseConfig);
                 connections.add(connection);
             }
             return connections;
@@ -34,6 +31,13 @@ public class MySqlConnectionPool implements ConnectionPool {
             e.printStackTrace();
             return connections;
         }
+    }
+
+    private static Connection createConnection(final DatabaseConfig databaseConfig) throws SQLException {
+        return DriverManager.getConnection(
+                "jdbc:mysql://" + databaseConfig.getServer() + "/" + databaseConfig.getDatabase() + databaseConfig.getOption(),
+                databaseConfig.getUsername(),
+                databaseConfig.getPassword());
     }
 
     @Override

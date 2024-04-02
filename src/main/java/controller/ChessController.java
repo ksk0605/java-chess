@@ -17,6 +17,7 @@ import java.sql.SQLException;
 public class ChessController {
     private static final InputView INPUT_VIEW = new InputView();
     private static final OutputView OUTPUT_VIEW = new OutputView();
+
     private final ChessService chessService;
 
     public ChessController() {

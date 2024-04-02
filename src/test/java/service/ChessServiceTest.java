@@ -83,8 +83,7 @@ class ChessServiceTest {
         chessService.start();
         // then
         assertThat(chessService.getChessBoard())
-                .isEqualTo(Map.of(new Square(File.E, Rank.SEVEN), new WhitePawn())
-                );
+                .isEqualTo(Map.of(new Square(File.E, Rank.SEVEN), new WhitePawn()));
     }
 }
 
